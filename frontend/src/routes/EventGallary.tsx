@@ -4,6 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component"
 
 interface Props {
   query?: string
+  setActiveEventID: (activeEventID: number) => void
 }
 
 interface Event {
@@ -12,7 +13,7 @@ interface Event {
   title: string
 }
 
-function EventGallery({ query = '' }: Props) {
+function EventGallery({ query = '', setActiveEventID }: Props) {
   const [eventArray, setEventArray] = useState([])
   const [hasMoreEvents, setHasMoreEvents] = useState(true)
 
@@ -38,7 +39,7 @@ function EventGallery({ query = '' }: Props) {
   return (
     <>
       <h1>Event Gallery</h1>
-      <h2>{query}</h2>
+      <h2>query: {query}</h2>
       <InfiniteScroll
         dataLength={eventArray.length}
         next={fetchMoreEvents}
@@ -49,7 +50,7 @@ function EventGallery({ query = '' }: Props) {
       </InfiniteScroll>
       {
         eventArray.map((data: Event, index) => (
-          <EventCard key={index} eventID={data.id} />
+          <EventCard key={index} eventID={data.id} setActiveEventID={setActiveEventID} />
         ))
       }
     </>

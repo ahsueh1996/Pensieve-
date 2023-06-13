@@ -1,8 +1,10 @@
 import { Card, CardActionArea, CardMedia, Grid, Typography } from "@mui/material"
+import { Link } from 'react-router-dom'
 import { useEffect, useState } from "react"
 
 interface Props {
   eventID: number
+  setActiveEventID: (activeEventID: number) => void
 }
 
 interface Photo {
@@ -24,7 +26,7 @@ interface EventCard {
   photoURLArray: string[]
 }
 
-function EventCard({ eventID }: Props) {
+function EventCard({ eventID, setActiveEventID }: Props) {
   const [eventCard, setEventCard] = useState<EventCard>({ metadata: '', photoURLArray: [''] })
 
   useEffect(() => {
@@ -69,15 +71,17 @@ function EventCard({ eventID }: Props) {
 
   return (
     <>
-      <h3>EventCard</h3>
-      <Card>
-        <CardActionArea
-          onClick={() => alert('test')}
-        >
+      <Link
+        to={'/small-photo-gallery'}
+        onClick={() => {
+          setActiveEventID(eventID)
+        }}
+      >
+        <Card>
           <Typography
-            component='p'
+            variant="h4"
           >
-            {eventCard.metadata}
+            Event {eventID} {eventCard.metadata}
           </Typography>
           <Grid container>
             {eventCard.photoURLArray.map((data: string, index) => (
@@ -89,10 +93,9 @@ function EventCard({ eventID }: Props) {
                 </CardMedia>
               </Grid>
             ))}
-
           </Grid>
-        </CardActionArea>
-      </Card>
+        </Card>
+      </Link>
     </>
 
   )
