@@ -41,7 +41,7 @@ data = dict(
 # print(results(job_id=job.metadata.id))
 
 import requests
-payload = {
+payload_ubuntu_hello = {
   "Engine": "Docker", 
   "Docker": {"Image": "ubuntu", "Entrypoint": ["echo", "hello"]}, 
   "Deal": {"Concurrency": 1}, 
@@ -49,9 +49,37 @@ payload = {
   "PublisherSpec": {"Type":"IPFS"}, 
   "random":{"mystuff":123}
   }
-r = requests.post("http://dashboard.bacalhau.org:1000/api/v1/run", json=payload)
+
+payload_pytut = {
+  "Engine": "Docker", 
+  "Docker": {"Image": "akfhsueh/baca-pytut", "Entrypoint": ["python", "similar-movies.py"]}, 
+  "Deal": {"Concurrency": 1}, 
+  "Verifier": "Noop", 
+  "PublisherSpec": {"Type":"IPFS"}, 
+  "random":{"mystuff":123}
+  }
+
+payload_pymine = {
+  "Deal": {"Concurrency": 1}, 
+  "Docker": {"Image": "akfhsueh/baca-myonboarding4", "Entrypoint": ["python", "main.py", "--v", "rest"]}, 
+  "Engine": "Docker", 
+  "Language": {"JobContext": {}},
+  "Network": {"Type": None},
+  "Publisher": "Estuary", 
+  "PublisherSpec": {"Type":"Estuary"},
+  "Resources": {"GPU": ""},
+  "Timeout": 1800,
+  "Verifier": "Noop",
+  "Wasm": {"EntryModule": {}},
+  "outputs":[{"Name":"outputs","StorageSource":"IPFS","path":"/outputs"}]
+  }
+
+r = requests.post("http://dashboard.bacalhau.org:1000/api/v1/run", json=payload_pymine)
 
 from multiformats_cid import make_cid, CIDv0
-cidv0 = make_cid(r.json()["cid"])
-cidv1 = str(cidv0.to_v1())
-print(f"Status Code: {r.status_code}, cidv0: {cidv0}, cidv1: {cidv1}")
+try:
+  cidv0 = make_cid(r.json()["cid"])
+  cidv1 = str(cidv0.to_v1())
+  print(f"Status Code: {r.status_code}, cidv0: {cidv0}, cidv1: {cidv1}\n{r.json()}")
+except:
+  print(f"Status Code: {r.status_code}, {r.json()}")
