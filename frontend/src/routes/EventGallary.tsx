@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import EventCard from "../components/EventCard"
+import InfiniteScroll from "react-infinite-scroll-component"
 
 interface Props {
   query?: string
@@ -13,6 +14,7 @@ interface Event {
 
 function EventGallery({ query = '' }: Props) {
   const [eventArray, setEventArray] = useState([])
+  const [hasMoreEvents, setHasMoreEvents] = useState(true)
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -23,18 +25,33 @@ function EventGallery({ query = '' }: Props) {
     fetchEvents()
   }, [])
 
+  const fetchMoreEvents = async () => {
+    console.log('fetching more data')
+    const res = await fetch(import.meta.env.VITE_EVENT_COLLECTION_ENDPOINT_URL + '?_start=' + eventArray.length + '&_limit=5')
+    const data = await res.json()
+    setEventArray(eventArray.concat(data))
+    if (data < 5) {
+      setHasMoreEvents(false)
+    }
+  }
+
   return (
     <>
       <h1>Event Gallery</h1>
       <h2>{query}</h2>
-      
+      <InfiniteScroll
+        dataLength={eventArray.length}
+        next={fetchMoreEvents}
+        hasMore={hasMoreEvents}
+        loader={''}
+      >
+
+      </InfiniteScroll>
       {
         eventArray.map((data: Event, index) => (
           <EventCard key={index} eventID={data.id} />
         ))
       }
-      {/* <EventCard eventID={}/> */}
-      {/* <p>{JSON.stringify(eventArray)}</p> */}
     </>
   )
 }
