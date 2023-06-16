@@ -13,12 +13,13 @@ module.exports = async ({ deployments }) => {
         log: true,
     })
 
+    const account = "0x40FD6a96e641EA5D3A9C83D931369e29Cb51a32E"
     const poapTokenContract = await ethers.getContractAt("PoapToken", poapToken.address)
-    const mintTx = await poapTokenContract.grantWriteAccess(account, poapToken.address, 0, "")
+    const mintTx = await poapTokenContract.safeMint(account)
     await mintTx.wait()
 
     console.log(`Deploying POAP Token... ${poapToken.address}`)
-    console.log(`Minted... ${mintTx}`)
+    console.log(`Minted to ${account} at txn:`, mintTx)
 
 }
 

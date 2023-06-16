@@ -16,9 +16,9 @@ module.exports = async ({ deployments }) => {
     })
 
     const account = "0x40FD6a96e641EA5D3A9C83D931369e29Cb51a32E"
-    console.log("Deploying Memory Token...")
+    console.log(`Deploying Memory Token... ${memoryToken.address}`)
     const memoryTokenContract = await ethers.getContractAt("MemoryToken", memoryToken.address)
-    const grantWriteTx = await memoryTokenContract.grantWriteAccess(account, poapToken.address, 0, "")
+    const grantWriteTx = await memoryTokenContract.grantWriteAccess(account, poapToken.address, 0, [])
     await grantWriteTx.wait()
-    console.log("Write access granted")
+    console.log(`Write access granted to ${account} at txn`, grantWriteTx)
 }

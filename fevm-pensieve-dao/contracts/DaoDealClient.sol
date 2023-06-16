@@ -320,7 +320,8 @@ contract DaoDealClient is Ownable {
     return withdrawBalanceAmount;
   }
 
-  function receiveDataCap(bytes memory params) internal {
+  function receiveDataCap() internal {
+  // function receiveDataCap(bytes memory params) internal {
     require(
       msg.sender == DATACAP_ACTOR_ETH_ADDRESS,
       "msg.sender needs to be datacap actor f07"
@@ -352,7 +353,8 @@ contract DaoDealClient is Ownable {
     } else if (method == MARKET_NOTIFY_DEAL_METHOD_NUM) {
       dealNotify(params);
     } else if (method == DATACAP_RECEIVER_HOOK_METHOD_NUM) {
-      receiveDataCap(params);
+      // receiveDataCap(params);
+      receiveDataCap();
     } else {
       revert("the filecoin method that was called is not handled");
     }

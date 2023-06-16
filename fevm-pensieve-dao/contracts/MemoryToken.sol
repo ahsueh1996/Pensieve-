@@ -89,6 +89,11 @@ contract MemoryToken is ERC1155, ERC1155Supply, Ownable {
     {
         require(ERC721(poap).ownerOf(poapTokenId) == account, "invalid proof");
         require(used[poap][poapTokenId] == false, "proof used");
+
+        if (memories[1][poap] == 0) {
+            _registerMemory(poap);
+        }
+
         // free
         _mint(account, memories[1][poap], 1, data);
     }
