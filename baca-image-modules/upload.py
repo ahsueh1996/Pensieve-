@@ -30,7 +30,7 @@ else:
 
 
 # We will automatically segment instances of the image and tag each result
-fcn = models.segmentation.fcn_resnet101(pretrained=True).eval()
+fcn = models.segmentation.fcn_resnet101(pretrained=False, pretrained_backbone=False).eval()
 fcnckpt = torch.load('inputs/fcn_resnet101_coco-7ecb50ca.pth')
 fcn.load_state_dict(fcnckpt, strict=False)
 fcn = fcn.eval()
