@@ -21,4 +21,4 @@ for lib in [np, torch, torchvision, PIL, json, base64, io, requests, argparse]:
 imarray = np.random.rand(100,100,3) * 255
 im = Image.fromarray(imarray.astype('uint8')).convert('RGBA')
 im.save(TEST_IMG_FILE)
-print(f"Complete.")
+print(f"************ Complete. *************************")
