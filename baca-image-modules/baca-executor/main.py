@@ -17,7 +17,7 @@ TEST_IMG_FILE = os.path.join(OUTPUT_FOLDER,"test.png")
 
 print(f"*********** Pensive Generic Executor ***********")
 for lib in [np, torch, torchvision, PIL, json, base64, io, requests, argparse]:
-  print(f"{lib.__name__}=={lib.__version__}")
+  print(f"{lib.__name__}=={lib.__version__ if hasattr(lib,'__version__') else ''}")
 imarray = np.random.rand(100,100,3) * 255
 im = Image.fromarray(imarray.astype('uint8')).convert('RGBA')
 im.save(TEST_IMG_FILE)
