@@ -118,7 +118,23 @@ payload_pyimgpipe = {
   "outputs":[{"Name":"outputs","StorageSource":"IPFS","path":"/outputs"}]
   }
 
-r = requests.post("http://dashboard.bacalhau.org:1000/api/v1/run", json=payload_pyimgpipe)
+payload_pyupload = {
+  "Deal": {"Concurrency": 1}, 
+  "Docker": {"Image": "akfhsueh/baca-upload-preproc", "Entrypoint": ["python", "main.py", "--i", imb64]}, 
+  "Engine": "Docker", 
+  "Language": {"JobContext": {}},
+  "Network": {"Type": None},
+  "Publisher": "Estuary", 
+  "PublisherSpec": {"Type":"Estuary"},
+  "Resources": {"GPU": ""},
+  "Timeout": 1800,
+  "Verifier": "Noop",
+  "Wasm": {"EntryModule": {}},
+  # "inputs":[{"CID":ipfsHash,"StorageSource":"IPFS","path":"/inputs"}],
+  "outputs":[{"Name":"outputs","StorageSource":"IPFS","path":"/outputs"}]
+  }
+
+r = requests.post("http://dashboard.bacalhau.org:1000/api/v1/run", json=payload_pyupload)
 
 from multiformats_cid import make_cid, CIDv0
 try:
