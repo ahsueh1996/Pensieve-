@@ -1,2 +1,4 @@
-.DS_Store
 .env
+.DS_Store
+testing/.DS_Store
+testing/baca-restfulClient/.DS_Store

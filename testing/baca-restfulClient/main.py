@@ -41,7 +41,7 @@ data = dict(
 # print(results(job_id=job.metadata.id))
 
 import requests
-payload = {
+payload_ubuntu_hello = {
   "Engine": "Docker", 
   "Docker": {"Image": "ubuntu", "Entrypoint": ["echo", "hello"]}, 
   "Deal": {"Concurrency": 1}, 
@@ -49,9 +49,81 @@ payload = {
   "PublisherSpec": {"Type":"IPFS"}, 
   "random":{"mystuff":123}
   }
-r = requests.post("http://dashboard.bacalhau.org:1000/api/v1/run", json=payload)
+
+payload_pytut = {
+  "Engine": "Docker", 
+  "Docker": {"Image": "akfhsueh/baca-pytut", "Entrypoint": ["python", "similar-movies.py"]}, 
+  "Deal": {"Concurrency": 1}, 
+  "Verifier": "Noop", 
+  "PublisherSpec": {"Type":"IPFS"}, 
+  "random":{"mystuff":123}
+  }
+
+payload_pyonboarding = {
+  "Deal": {"Concurrency": 1}, 
+  "Docker": {"Image": "akfhsueh/baca-myonboarding4", "Entrypoint": ["python", "main.py", "--v", "rest"]}, 
+  "Engine": "Docker", 
+  "Language": {"JobContext": {}},
+  "Network": {"Type": None},
+  "Publisher": "Estuary", 
+  "PublisherSpec": {"Type":"Estuary"},
+  "Resources": {"GPU": ""},
+  "Timeout": 1800,
+  "Verifier": "Noop",
+  "Wasm": {"EntryModule": {}},
+  "outputs":[{"Name":"outputs","StorageSource":"IPFS","path":"/outputs"}]
+  }
+
+imb64 = "R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw=="
+
+import base64
+from PIL import Image
+
+image = Image.open('input.jpg')
+image.thumbnail((400, 400))
+image.save('input_thumbnail.jpg')
+with open("input_thumbnail.jpg", "rb") as img_file:
+  imb64 = base64.b64encode(img_file.read()).decode('utf-8').replace('\n','')
+  print(imb64[0:200])
+  f = open("imb64","w")
+  f.write(imb64)
+  f.close()
+
+# import ipfsapi
+
+# def ipfsFileFunction(filename):
+#     api = ipfsapi.connect('127.0.0.1', 5001)
+#     ipfsLoadedFile = api.add(filename)
+#     ipfsHash = (ipfsLoadedFile['Hash'])
+#     return ipfsHash
+
+# ipfsHash = ipfsFileFunction("imb64")
+# print(f"My ipfs Hash: {ipfsHash}")
+# if (len(imb64)>130314):
+#    imb64="ipfs"
+
+payload_pyimgpipe = {
+  "Deal": {"Concurrency": 1}, 
+  "Docker": {"Image": "akfhsueh/baca-dftimgpipe", "Entrypoint": ["python", "main.py", "--v", "rest", "--i", imb64]}, 
+  "Engine": "Docker", 
+  "Language": {"JobContext": {}},
+  "Network": {"Type": None},
+  "Publisher": "Estuary", 
+  "PublisherSpec": {"Type":"Estuary"},
+  "Resources": {"GPU": ""},
+  "Timeout": 1800,
+  "Verifier": "Noop",
+  "Wasm": {"EntryModule": {}},
+  # "inputs":[{"CID":ipfsHash,"StorageSource":"IPFS","path":"/inputs"}],
+  "outputs":[{"Name":"outputs","StorageSource":"IPFS","path":"/outputs"}]
+  }
+
+r = requests.post("http://dashboard.bacalhau.org:1000/api/v1/run", json=payload_pyimgpipe)
 
 from multiformats_cid import make_cid, CIDv0
-cidv0 = make_cid(r.json()["cid"])
-cidv1 = str(cidv0.to_v1())
-print(f"Status Code: {r.status_code}, cidv0: {cidv0}, cidv1: {cidv1}")
+try:
+  cidv0 = make_cid(r.json()["cid"])
+  cidv1 = str(cidv0.to_v1())
+  print(f"Status Code: {r.status_code}, cidv0: {cidv0}, cidv1: {cidv1}\n{r.json()}")
+except:
+  print(f"Status Code: {r.status_code}, {r.json()}")
