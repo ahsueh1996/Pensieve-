@@ -6,7 +6,6 @@ from io import BytesIO
 import base64
 import json
 from PIL import Image
-import matplotlib.pyplot as plt
 import torch
 import torchvision.transforms as T
 import numpy as np
@@ -71,7 +70,7 @@ def decode_segmap(image, nc=21):
 
 
 def segment(net, img, show_pic=False, dev='cuda'):
-  if show_pic: plt.imshow(img); plt.axis('off'); plt.show()
+  #if show_pic: plt.imshow(img); plt.axis('off'); plt.show()
   # Comment the Resize and CenterCrop for better inference results
   trf = T.Compose([#T.Resize(640), 
                    #T.CenterCrop(224), 
@@ -82,7 +81,7 @@ def segment(net, img, show_pic=False, dev='cuda'):
   out = net.to(dev)(inp)['out']
   om = torch.argmax(out.squeeze(), dim=0).detach().cpu().numpy()
   rgb = decode_segmap(om)
-  if show_pic: plt.imshow(rgb); plt.axis('off'); plt.show()
+  #if show_pic: plt.imshow(rgb); plt.axis('off'); plt.show()
   return rgb
 
 

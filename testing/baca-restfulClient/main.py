@@ -120,7 +120,23 @@ payload_pyimgpipe = {
 
 payload_pyupload = {
   "Deal": {"Concurrency": 1}, 
-  "Docker": {"Image": "akfhsueh/baca-upload-preproc", "Entrypoint": ["python", "main.py", "--i", imb64]}, 
+  "Docker": {"Image": "akfhsueh/baca-upload-preproc2", "Entrypoint": ["python", "main.py", "--i", imb64]}, 
+  "Engine": "Docker", 
+  "Language": {"JobContext": {}},
+  "Network": {"Type": None},
+  "Publisher": "Estuary", 
+  "PublisherSpec": {"Type":"Estuary"},
+  "Resources": {"GPU": ""},
+  "Timeout": 1800,
+  "Verifier": "Noop",
+  "Wasm": {"EntryModule": {}},
+  # "inputs":[{"CID":ipfsHash,"StorageSource":"IPFS","path":"/inputs"}],
+  "outputs":[{"Name":"outputs","StorageSource":"IPFS","path":"/outputs"}]
+  }
+
+payload_pyupload = {
+  "Deal": {"Concurrency": 1}, 
+  "Docker": {"Image": "akfhsueh/generic-venv-torchcpu", "Entrypoint": ["python", "main.py", "--i", imb64]}, 
   "Engine": "Docker", 
   "Language": {"JobContext": {}},
   "Network": {"Type": None},
