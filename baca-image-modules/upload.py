@@ -31,8 +31,8 @@ else:
 
 # We will automatically segment instances of the image and tag each result
 fcn = models.segmentation.fcn_resnet101(pretrained=True).eval()
-# fcnckpt = torch.load('models/fcn_resnet101_coco-7ecb50ca.pth')
-# fcn.load_state_dict(fcnckpt, strict=False)
+fcnckpt = torch.load('inputs/fcn_resnet101_coco-7ecb50ca.pth')
+fcn.load_state_dict(fcnckpt, strict=False)
 fcn = fcn.eval()
 # dlab = models.segmentation.deeplabv3_resnet101(pretrained=False, pretrained_backbone = False)
 # dlabckpt = torch.load('models/deeplabv3_resnet101_coco-586e9e4e.pth')
