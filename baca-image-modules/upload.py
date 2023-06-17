@@ -115,7 +115,10 @@ apes = []
 for (x, y, w, h) in faces_rect:
     cv2.rectangle(npimg, (x, y), (x+w, y+h), (0, 255, 0), thickness=2)
     draw.rectangle([ (x,y), (x+w,y+h) ], fill=255)
-    apefile = random.choice(apefiles)
+    apefile = "choose randome ape"
+    while (".png" not in apefile):
+      apefile = random.choice(apefiles)
+    print(f"chosen ape {apefile} for face @ {(x,y,w,h)}")
     apeimg = Image.open(os.path.join('inputs','apes',apefile))
     background = Image.new('RGBA', apeimg.size, (255,255,255))
     alpha_composite = Image.alpha_composite(background, apeimg)

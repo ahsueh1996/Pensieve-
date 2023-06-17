@@ -79,7 +79,7 @@ imb64 = "R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF
 import base64
 from PIL import Image
 
-image = Image.open('input.png')
+image = Image.open('input2.jpg')
 image.thumbnail((400, 400))
 image.save('input_thumbnail.jpg')
 with open("input_thumbnail.jpg", "rb") as img_file:
@@ -134,9 +134,15 @@ payload_pyoldpreproc = {
   "outputs":[{"Name":"outputs","StorageSource":"IPFS","path":"/outputs"}]
   }
 
+
+'''
+Corresponding cli run
+bacalhau docker run --input https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/upload.py --input https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/sample.jpg --input ipfs://QmRfzrnEEr3smFntyrz27xh2Xy1mmL2b4VAh3U3K7uhTBU:/inputs/fcn_resnet101_coco-7ecb50ca.pth --input https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/0.png:/inputs/apes --input https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/1.png:/inputs/apes --input https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/100.png:/inputs/apes --input https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/1000.png:/inputs/apes --input https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/1002.png:/inputs/apes --input https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/1003.png:/inputs/apes --input https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/1004.png:/inputs/apes akfhsueh/baca-generic-pytorch-cpu-cv2-plt -- python3 /inputs/upload.py --i $(cat ~/Documents/Github/Pensieve-/testing/baca-restfulClient/imb64)
+'''
+
 payload_pyupload = {
   "Deal": {"Concurrency": 1}, 
-  "Docker": {"Image": "akfhsueh/baca-generic-pytorch-cpu", "Entrypoint": ["python3", "/inputs/upload.py","--i",imb64]}, 
+  "Docker": {"Image": "akfhsueh/baca-generic-pytorch-cpu-cv2headless-plt", "Entrypoint": ["python3", "/inputs/upload.py","--i",imb64]}, 
   "Engine": "Docker", 
   "Language": {"JobContext": {}},
   "Network": {"Type": None},
@@ -154,7 +160,31 @@ payload_pyupload = {
     {"Name": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/sample.jpg",
       "StorageSource": "URLDownload",
       "URL": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/sample.jpg",
-      "path": "/inputs"},
+      "path": "/inputs/apes"},
+    {"Name": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/0.png",
+      "StorageSource": "URLDownload",
+      "URL": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/0.png",
+      "path": "/inputs/apes"},
+    {"Name": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/1.png",
+      "StorageSource": "URLDownload",
+      "URL": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/1.png",
+      "path": "/inputs/apes"},
+    {"Name": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/1000.png",
+      "StorageSource": "URLDownload",
+      "URL": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/1000.png",
+      "path": "/inputs/apes"},
+    {"Name": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/1002.png",
+      "StorageSource": "URLDownload",
+      "URL": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/1002.png",
+      "path": "/inputs/apes"},
+    {"Name": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/1003.png",
+      "StorageSource": "URLDownload",
+      "URL": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/1003.png",
+      "path": "/inputs/apes"},
+    {"Name": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/1004.png",
+      "StorageSource": "URLDownload",
+      "URL": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/apes/1004.png",
+      "path": "/inputs/apes"},
     {"CID": "QmRfzrnEEr3smFntyrz27xh2Xy1mmL2b4VAh3U3K7uhTBU",
       "Name": "ipfs://QmRfzrnEEr3smFntyrz27xh2Xy1mmL2b4VAh3U3K7uhTBU",
       "StorageSource": "IPFS",
