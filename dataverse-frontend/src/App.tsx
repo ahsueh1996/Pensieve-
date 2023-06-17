@@ -38,13 +38,6 @@ function App() {
     updateStream,
   } = useStream();
 
-  const connect = async () => {
-    const { wallet } = await connectWallet();
-    const pkh = await createCapability(wallet);
-    console.log("pkh:", pkh);
-    return pkh;
-  };
-
   const createPublicEvent = async () => {
     const date = new Date().toISOString();
     const { streamId, ...streamRecord } = await createPublicStream({
@@ -203,8 +196,8 @@ function App() {
 
   return (
     <>
-      <Header setQuery={setQuery} />
-      <EventGallery query={query}/>
+      <Header pSetQuery={setQuery} />
+      <EventGallery pQuery={query}/>
       <div className="App">
       </div>
     </>

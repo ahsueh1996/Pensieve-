@@ -6,14 +6,12 @@ import { Context } from "../context";
 
 interface Props {
   pSetQuery: (pQuery: string) => void
-  pSetEventID: (pEventID: string) => void
 }
 
-function Header({ pSetQuery, pSetEventID }: Props) {
-  const [query, setQuery] = useState('')
-  const [eventID, setEventID] = useState('')
-
+function Header({ pSetQuery }: Props) {
   const { appVersion, postModel, eventModel } = useContext(Context);
+
+  const [query, setQuery] = useState('')
 
   const { connectWallet } = useWallet();
   const {
@@ -32,10 +30,6 @@ function Header({ pSetQuery, pSetEventID }: Props) {
     pSetQuery(query)
   }
 
-  const onAddEventClick = () => {
-    pSetEventID(eventID)
-  }
-
   const connect = async () => {
     const { wallet } = await connectWallet();
     const pkh = await createCapability(wallet);
@@ -46,10 +40,8 @@ function Header({ pSetQuery, pSetEventID }: Props) {
   return (
     <>
       <Grid container>
-        <Grid item xs={2}>
+        <Grid item xs={12}>
           <Button onClick={connect}>Connect</Button>
-        </Grid>
-        <Grid item xs={10}>
           <p>{pkh ? pkh : null}</p>
         </Grid>
       </Grid>
@@ -67,17 +59,6 @@ function Header({ pSetQuery, pSetEventID }: Props) {
           <ButtonBase>
             <EmailIcon fontSize='large' />
           </ButtonBase>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Event ID"
-            id="outlined-basic"
-            variant="outlined"
-            size='small'
-            value={eventID}
-            onChange={e => setEventID(e.target.value)}
-          />
-          <Button variant="contained" onClick={onAddEventClick}>Add Event</Button>
         </Grid>
       </Grid>
     </>

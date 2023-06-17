@@ -43,7 +43,7 @@ function EventGallery({ pQuery = '' }: Props) {
   return (
     <>
       <h1>Event Gallery</h1>
-      <h2>{query}</h2>
+      <h2>{pQuery}</h2>
       {
         eventArray.length > 0 ? 
         eventArray.map((data: Event, index) => (
