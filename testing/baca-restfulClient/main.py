@@ -79,7 +79,7 @@ imb64 = "R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF
 import base64
 from PIL import Image
 
-image = Image.open('input.jpg')
+image = Image.open('input.png')
 image.thumbnail((400, 400))
 image.save('input_thumbnail.jpg')
 with open("input_thumbnail.jpg", "rb") as img_file:
@@ -118,7 +118,7 @@ payload_pyimgpipe = {
   "outputs":[{"Name":"outputs","StorageSource":"IPFS","path":"/outputs"}]
   }
 
-payload_pyupload = {
+payload_pyoldpreproc = {
   "Deal": {"Concurrency": 1}, 
   "Docker": {"Image": "akfhsueh/baca-upload-preproc2", "Entrypoint": ["python", "main.py", "--i", imb64]}, 
   "Engine": "Docker", 
@@ -136,7 +136,7 @@ payload_pyupload = {
 
 payload_pyupload = {
   "Deal": {"Concurrency": 1}, 
-  "Docker": {"Image": "akfhsueh/generic-venv-torchcpu", "Entrypoint": ["python", "main.py", "--i", imb64]}, 
+  "Docker": {"Image": "akfhsueh/baca-generic-pytorch-cpu", "Entrypoint": ["python3", "/inputs/upload.py","--i",imb64]}, 
   "Engine": "Docker", 
   "Language": {"JobContext": {}},
   "Network": {"Type": None},
@@ -146,7 +146,20 @@ payload_pyupload = {
   "Timeout": 1800,
   "Verifier": "Noop",
   "Wasm": {"EntryModule": {}},
-  # "inputs":[{"CID":ipfsHash,"StorageSource":"IPFS","path":"/inputs"}],
+  "inputs":[
+    {"Name": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/upload.py",
+      "StorageSource": "URLDownload",
+      "URL": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/upload.py",
+      "path": "/inputs"},
+    {"Name": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/sample.jpg",
+      "StorageSource": "URLDownload",
+      "URL": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/sample.jpg",
+      "path": "/inputs"},
+    {"CID": "QmRfzrnEEr3smFntyrz27xh2Xy1mmL2b4VAh3U3K7uhTBU",
+      "Name": "ipfs://QmRfzrnEEr3smFntyrz27xh2Xy1mmL2b4VAh3U3K7uhTBU",
+      "StorageSource": "IPFS",
+      "path": "/inputs/fcn_resnet101_coco-7ecb50ca.pth"}
+  ],
   "outputs":[{"Name":"outputs","StorageSource":"IPFS","path":"/outputs"}]
   }
 
