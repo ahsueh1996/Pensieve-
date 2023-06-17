@@ -1,21 +1,27 @@
-import { Button, ButtonBase, Grid, TextField } from "@mui/material"
+import { Button, ButtonBase, Grid, TextField } from '@mui/material'
+import { useContext, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useStream, useWallet } from '../hooks';
+import { Context } from '../context';
 import EmailIcon from '@mui/icons-material/Email';
-import { useContext, useState } from "react";
-import { useStream, useWallet } from "../hooks";
-import { Context } from "../context";
+
 
 interface Props {
-  pSetQuery: (pQuery: string) => void
+  setQuery: (query: string) => void
+  pSetQuery: (pQuery: string) => void,
   pSetEventID: (pEventID: string) => void
 }
 
-function Header({ pSetQuery, pSetEventID }: Props) {
-  const [query, setQuery] = useState('')
-  const [eventID, setEventID] = useState('')
-
+function HeaderTwo({ pSetQuery, pSetEventID }: Props) {
   const { appVersion, postModel, eventModel } = useContext(Context);
 
+  const [sQuery, setSQuery] = useState('')
+  const [sEventID, setSEventID] = useState('')
+
+  const { runtimeConnector } = useContext(Context);
+
   const { connectWallet } = useWallet();
+
   const {
     pkh,
     createCapability,
@@ -27,13 +33,10 @@ function Header({ pSetQuery, pSetEventID }: Props) {
     unlockStream,
     updateStream,
   } = useStream();
+  const [queryText, setQueryText] = useState('')
 
   const onSearchClick = () => {
-    pSetQuery(query)
-  }
-
-  const onAddEventClick = () => {
-    pSetEventID(eventID)
+    pSetQuery(sQuery)
   }
 
   const connect = async () => {
@@ -45,14 +48,7 @@ function Header({ pSetQuery, pSetEventID }: Props) {
 
   return (
     <>
-      <Grid container>
-        <Grid item xs={2}>
-          <Button onClick={connect}>Connect</Button>
-        </Grid>
-        <Grid item xs={10}>
-          <p>{pkh ? pkh : null}</p>
-        </Grid>
-      </Grid>
+      <Button>Create</Button>
       <Grid container>
         <Grid item xs={12}>
           <TextField
@@ -80,8 +76,28 @@ function Header({ pSetQuery, pSetEventID }: Props) {
           <Button variant="contained" onClick={onAddEventClick}>Add Event</Button>
         </Grid>
       </Grid>
+    
+      <Button onClick={connect}>Connect</Button>
+      <p>{pkh ? pkh : null}</p>
+      <hr />
+      <Button variant="contained">Upload</Button>
+      <TextField
+        label="Query"
+        id="outlined-basic"
+        variant="outlined"
+        value={queryText}
+        size='small'
+        onChange={e => setQueryText(e.target.value)}
+      />
+      <Link
+        to={"/query"}
+        state={{ query: { queryText } }}
+      >
+        <Button variant="outlined" onClick={onSearchClick}>Search</Button>
+      </Link>
+      <Button variant="contained">Notification</Button>
     </>
   )
 }
 
-export default Header
+export default HeaderTwo

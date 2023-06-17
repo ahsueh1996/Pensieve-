@@ -10,6 +10,7 @@ import Header from "./components/Header";
 
 function App() {
   const [query, setQuery] = useState('')
+  const [eventID, setEventID] = useState('')
 
   const { appVersion, postModel, eventModel } = useContext(Context);
   const [currentStreamId, setCurrentStreamId] = useState<string>();
@@ -202,9 +203,9 @@ function App() {
 
   return (
     <>
-      <Header setQuery={setQuery} />
-      <EventGallery />
-      <div className="App">
+      <Header pSetQuery={setQuery} pSetEventID={setEventID} />
+      <EventGallery pQuery={query} />
+      {/* <div className="App">
         <button onClick={connect}>connect</button>
         <div className="blackText">{pkh}</div>
         <hr />
@@ -267,7 +268,7 @@ function App() {
           </div>
         )}
         <br />
-      </div>
+      </div> */}
     </>
   );
 }
