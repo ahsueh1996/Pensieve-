@@ -10,6 +10,7 @@ import Header from "./components/Header";
 
 function App() {
   const [query, setQuery] = useState('')
+  const [eventID, setEventID] = useState('')
 
   const { appVersion, postModel, eventModel } = useContext(Context);
   const [currentStreamId, setCurrentStreamId] = useState<string>();

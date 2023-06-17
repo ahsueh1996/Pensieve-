@@ -5,7 +5,7 @@ import { useStream } from "../hooks";
 
 
 interface Props {
-  query?: string
+  pQuery: string
 }
 
 interface Event {
@@ -14,7 +14,7 @@ interface Event {
   title: string
 }
 
-function EventGallery({ query = '' }: Props) {
+function EventGallery({ pQuery = '' }: Props) {
   const [eventArray, setEventArray] = useState([])
   const [publicEvent, setPublicEvent] = useState<StreamRecord>();
   const [events, setEvents] = useState<StreamRecord[]>(); // All events
