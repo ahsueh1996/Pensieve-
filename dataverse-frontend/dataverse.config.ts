@@ -19,6 +19,10 @@ export const config = {
       isPublicDomain: true,
       schemaName: "event.graphql",
     },
+    {
+      isPublicDomain: true,
+      schemaName: "photo.graphql",
+    },
   ],
   ceramicUrl: null, // leave null to use dataverse test Ceramic node. Set to {Your Ceramic node Url} for mainnet, should start with "https://".
 };

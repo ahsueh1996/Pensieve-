@@ -203,72 +203,10 @@ function App() {
 
   return (
     <>
-      <Header pSetQuery={setQuery} pSetEventID={setEventID} />
-      <EventGallery pQuery={query} />
-      {/* <div className="App">
-        <button onClick={connect}>connect</button>
-        <div className="blackText">{pkh}</div>
-        <hr />
-        <button onClick={createPublicEvent}>createPublicEvent</button>
-        {publicEvent && (
-          <div className="json-view">
-            <ReactJson src={publicEvent} collapsed={true} />
-          </div>
-        )}
-        <button onClick={loadEvents}>loadEvents</button>
-        {events && (
-          <div className="json-view">
-            <ReactJson src={events} collapsed={true} />
-          </div>
-        )}
-        <hr />
-        <button onClick={createPublicPost}>createPublicPost</button>
-        {publicPost && (
-          <div className="json-view">
-            <ReactJson src={publicPost} collapsed={true} />
-          </div>
-        )}
-        <button onClick={createEncryptedPost}>createEncryptedPost</button>
-        {encryptedPost && (
-          <div className="json-view">
-            <ReactJson src={encryptedPost} collapsed={true} />
-          </div>
-        )}
-        <button onClick={createPayablePost}>createPayablePost</button>
-        {payablePost && (
-          <div className="json-view">
-            <ReactJson src={payablePost} collapsed={true} />
-          </div>
-        )}
-        <div className="red">
-          You need a testnet lens profile to monetize data.
-        </div>
-        <button onClick={loadPosts}>loadPosts</button>
-        {posts && (
-          <div className="json-view">
-            <ReactJson src={posts} collapsed={true} />
-          </div>
-        )}
-        <button onClick={updatePost}>updatePost</button>
-        {updatedPost && (
-          <div className="json-view">
-            <ReactJson src={updatedPost} collapsed={true} />
-          </div>
-        )}
-        <button onClick={monetizePost}>monetizePost</button>
-        {monetizedPost && (
-          <div className="json-view">
-            <ReactJson src={monetizedPost} collapsed={true} />
-          </div>
-        )}
-        <button onClick={unlockPost}>unlockPost</button>
-        {unlockedPost && (
-          <div className="json-view">
-            <ReactJson src={unlockedPost} collapsed={true} />
-          </div>
-        )}
-        <br />
-      </div> */}
+      <Header setQuery={setQuery} />
+      <EventGallery query={query}/>
+      <div className="App">
+      </div>
     </>
   );
 }

@@ -33,7 +33,8 @@ function EventGallery({ pQuery = '' }: Props) {
   useEffect(() => {
     const fetchEvents = async () => {
       const res = await fetch('https://jsonplaceholder.typicode.com/albums' + '?_limit=2')
-      const events = await res.json()
+      let events = await res.json()
+      events = []
       setEventArray(events)
     }
     fetchEvents()
@@ -43,11 +44,13 @@ function EventGallery({ pQuery = '' }: Props) {
     <>
       <h1>Event Gallery</h1>
       <h2>{query}</h2>
-
       {
+        eventArray.length > 0 ? 
         eventArray.map((data: Event, index) => (
           <EventCard key={index} eventID={data.id} />
         ))
+        : 
+        <p> No event found. Do you want to add it? </p>
       }
       {/* <EventCard eventID={}/> */}
       {/* <p>{JSON.stringify(eventArray)}</p> */}
