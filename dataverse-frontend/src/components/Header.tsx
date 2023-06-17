@@ -1,5 +1,7 @@
-import { Button, ButtonBase, Grid, TextField } from "@mui/material"
+import { Button, Grid, TextField } from "@mui/material"
 import EmailIcon from '@mui/icons-material/Email';
+import SavedSearchIcon from '@mui/icons-material/SavedSearch';
+import LoginIcon from '@mui/icons-material/Login';
 import { useContext, useState } from "react";
 import { useStream, useWallet } from "../hooks";
 import { Context } from "../context";
@@ -40,25 +42,31 @@ function Header({ pSetQuery }: Props) {
   return (
     <>
       <Grid container>
-        <Grid item xs={12}>
-          <Button onClick={connect}>Connect</Button>
+        <Grid item xs={2}>
+          <Button variant="contained" onClick={connect}>
+            <LoginIcon fontSize="medium" />
+          </Button>
           <p>{pkh ? pkh : null}</p>
         </Grid>
-      </Grid>
-      <Grid container>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <TextField
-            label="Query"
+            label=""
             id="outlined-basic"
-            variant="outlined"
+            variant="filled"
             size='small'
             value={query}
             onChange={e => setQuery(e.target.value)}
           />
-          <Button variant="contained" onClick={onSearchClick}>Search</Button>
-          <ButtonBase>
-            <EmailIcon fontSize='large' />
-          </ButtonBase>
+        </Grid>
+        <Grid item xs={2}>
+          <Button variant="contained" onClick={onSearchClick}>
+            <SavedSearchIcon fontSize="medium" />
+          </Button>
+        </Grid>
+        <Grid item xs={2}>
+          <Button>
+            <EmailIcon fontSize="medium" />
+          </Button>
         </Grid>
       </Grid>
     </>

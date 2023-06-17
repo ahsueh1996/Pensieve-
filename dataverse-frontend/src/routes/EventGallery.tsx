@@ -34,7 +34,7 @@ function EventGallery({ pQuery = '' }: Props) {
     const fetchEvents = async () => {
       const res = await fetch('https://jsonplaceholder.typicode.com/albums' + '?_limit=2')
       let events = await res.json()
-      events = []
+      // events = []
       setEventArray(events)
     }
     fetchEvents()
@@ -42,8 +42,6 @@ function EventGallery({ pQuery = '' }: Props) {
 
   return (
     <>
-      <h1>Event Gallery</h1>
-      <h2>{pQuery}</h2>
       {
         eventArray.length > 0 ? 
         eventArray.map((data: Event, index) => (

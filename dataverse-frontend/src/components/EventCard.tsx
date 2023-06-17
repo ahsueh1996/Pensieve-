@@ -69,7 +69,6 @@ function EventCard({ eventID }: Props) {
 
   return (
     <>
-      <h3>EventCard</h3>
       <Card>
         <CardActionArea
           onClick={() => alert('test')}

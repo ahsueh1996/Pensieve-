@@ -77,7 +77,7 @@ function HeaderTwo({ pSetQuery, pSetEventID }: Props) {
         </Grid>
       </Grid>
     
-      <Button onClick={connect}>Connect</Button>
+      <Button variant="contained" onClick={connect}>Connect</Button>
       <p>{pkh ? pkh : null}</p>
       <hr />
       <Button variant="contained">Upload</Button>

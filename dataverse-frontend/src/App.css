@@ -1,3 +1,33 @@
+#root {
+  background-image: linear-gradient(#071c4d, #7ba7b2);
+  box-shadow: 0 0 8px 8px #071c4d inset;
+  height: 100vh;
+  background-position: bottom;
+  background-color: transparent;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url('../assets/stable-diffusion-background-01.jpeg');
+}
+
+button.MuiButtonBase-root {
+  color: #7ba7b2;
+  background-color: #071c4d;
+}
+
+button.MuiButtonBase-root:hover {
+  color: #fff011;
+  background-color: #071c4d;
+}
+
+input.MuiFilledInput-input {
+  color: #071c4d;
+  background-color: #def7f8;
+  height: 26px;
+  padding: 5px;
+  opacity: 60%;
+}
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
