@@ -1,0 +1,10 @@
+type photo @createModel(accountRelation: LIST, description: "event") {
+  author: DID! @documentAccount
+  version: CommitID! @documentVersion
+  appVersion: String! @string(maxLength: 100)
+  name: String @string(maxLength: 300000000)
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  imageUrl: String! @string(maxLength: 200)
+  metadataUrl: String! @string(maxLength: 200)
+}
