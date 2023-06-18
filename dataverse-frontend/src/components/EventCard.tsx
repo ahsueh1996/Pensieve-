@@ -110,7 +110,7 @@ function EventCard({ pEventObj }: Props) {
   const addPhotos = async () => {
     const newPhotoURL = 'https://jsonplaceholder.typicode.com/albums?_limit=1'
     const date = new Date().toISOString();
-    
+    //react file uploader eventId
     const { streamId, ...streamRecord } = await createPublicStream({
       pkh,
       model: postModel,

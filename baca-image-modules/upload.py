@@ -10,6 +10,7 @@ from torchvision import models
 import numpy as np
 import cv2
 import random
+import requests
 
 OUTPUT_FOLDER = "outputs"
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
@@ -155,6 +156,25 @@ for ape in apes:
   img.paste(apeimg, (x,y), mask=mask2)
 
 
+'''
+merge a qr code
+'''
+headers = {
+    'Authorization': 'Bearer eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleS1iZXJ5eC0wMDEiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W10sImlzcyI6IlpvbmRheCIsImF1ZCI6WyJiZXJ5eCJdLCJleHAiOjE2ODc4OTg3NDUsImp0aSI6ImFrZmhzdWVoLGFsYmVydC5rZi5oc3VlaEBnbWFpbC5jb20ifQ.4RmS_Q2er8GNmbL9iT8PFl81XVJcmgUfJ_kzVpREZTbILmPz1D6G-mn40iT_0HviwSoIg4h9qMvKSxSfbiIaEg',
+    'Accept': 'application/json'}
+r = requests.get("https://api.zondax.ch/fil/data/v1/mainnet/tipset/latest", headers=headers)
+beryx = r.json()
+currentheight = beryx['height']
+headers = {'Accept': 'application/json'}
+r = requests.get(f"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={currentheight}", headers=headers)
+qrbytes = r.content
+base64str = base64.b64encode(qrbytes).decode()
+
+qrcodeimg = Image.open(BytesIO(base64.b64decode(base64str)))
+qrcodeimg.thumbnail((50,50))
+x, y = img.size
+qx, qy = qrcodeimg.size
+img.paste(qrcodeimg, (x-qx,y-qy), mask=mask2)
 
 img.save(PROC_IMG_FILE)
 segimg.save(SEG_IMG_FILE)
