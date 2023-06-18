@@ -26,9 +26,11 @@ print(f"*********** Pensive Image Upload Preprocessing Module ***********")
 parser = argparse.ArgumentParser(description='Pensieve Image Upload Preprocessing Module')
 parser.add_argument('--i', dest='i', type=str, help='image in base64 (max dimensions est. 400x400)',default=None)
 parser.add_argument('--m', dest='m', type=str, help='metadata of image, json format',default="{}")
+parser.add_argument('--b', dest='b', type=str, help='metadata of image, json format',default="12345")
 args = parser.parse_args()
 imgb64 = args.i
 metadata = json.loads(args.m)
+beryx_height = args.b
 
 if (imgb64 == None):
     img = Image.open("inputs/sample.jpg")
@@ -112,6 +114,7 @@ print(faces_rect)
 
 mask = Image.new('L', img.size, 0)
 draw = ImageDraw.Draw(mask)
+draw.text((0,0),beryx_height,fill=(255,255,255))
 apefiles = os.listdir("inputs/apes")
 apes = []
 for (x, y, w, h) in faces_rect:
@@ -160,48 +163,48 @@ for ape in apes:
 '''
 merge a qr code
 '''
-print("...with try catch")
-print("***** Attempt beryx ******")
-print("with try catch...")
-try:
-  headers = {
-      'Authorization': 'Bearer eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleS1iZXJ5eC0wMDEiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W10sImlzcyI6IlpvbmRheCIsImF1ZCI6WyJiZXJ5eCJdLCJleHAiOjE2ODc4OTg3NDUsImp0aSI6ImFrZmhzdWVoLGFsYmVydC5rZi5oc3VlaEBnbWFpbC5jb20ifQ.4RmS_Q2er8GNmbL9iT8PFl81XVJcmgUfJ_kzVpREZTbILmPz1D6G-mn40iT_0HviwSoIg4h9qMvKSxSfbiIaEg',
-      'Accept': 'application/json'}
-  ip = "172.67.74.2"
-  dn = "api.zondax.ch"
-  r = requests.get(f"https://{ip}/fil/data/v1/mainnet/tipset/latest", headers=headers)
-  beryx = r.json()
-  print(f"beryx json: {beryx}")
-  currentheight = beryx['height']
-  print(f"beryx currentheight: {currentheight}")
-except Exception as e:
-   print(e)
-   print("failed beryx. Skipping")
-   currentheight = 12345
+# print("...with try catch")
+# print("***** Attempt beryx ******")
+# print("with try catch...")
+# try:
+#   headers = {
+#       'Authorization': 'Bearer eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleS1iZXJ5eC0wMDEiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W10sImlzcyI6IlpvbmRheCIsImF1ZCI6WyJiZXJ5eCJdLCJleHAiOjE2ODc4OTg3NDUsImp0aSI6ImFrZmhzdWVoLGFsYmVydC5rZi5oc3VlaEBnbWFpbC5jb20ifQ.4RmS_Q2er8GNmbL9iT8PFl81XVJcmgUfJ_kzVpREZTbILmPz1D6G-mn40iT_0HviwSoIg4h9qMvKSxSfbiIaEg',
+#       'Accept': 'application/json'}
+#   ip = "172.67.74.2"
+#   dn = "api.zondax.ch"
+#   r = requests.get(f"https://{ip}/fil/data/v1/mainnet/tipset/latest", headers=headers)
+#   beryx = r.json()
+#   print(f"beryx json: {beryx}")
+#   currentheight = beryx['height']
+#   print(f"beryx currentheight: {currentheight}")
+# except Exception as e:
+#    print(e)
+#    print("failed beryx. Skipping")
+#    currentheight = 12345
 
-print("Attempt qrcode from api")
-headers = {'Accept': 'application/json'}
-ip = "88.99.85.235"
-dn = "api.qrserver.com"
-r = requests.get(f"http://{ip}/v1/create-qr-code/?size=150x150&data={currentheight}", headers=headers)
-qrbytes = r.content
-base64str = base64.b64encode(qrbytes).decode()
-print(f"qr base64: {base64str[0:50]}")
+# print("Attempt qrcode from api")
+# headers = {'Accept': 'application/json'}
+# ip = "88.99.85.235"
+# dn = "api.qrserver.com"
+# r = requests.get(f"http://{ip}/v1/create-qr-code/?size=150x150&data={currentheight}", headers=headers)
+# qrbytes = r.content
+# base64str = base64.b64encode(qrbytes).decode()
+# print(f"qr base64: {base64str[0:50]}")
 
-print("Attempt open and resize qr...")
-qrcodeimg = Image.open(BytesIO(base64.b64decode(base64str)))
-qrcodeimg.thumbnail((50,50))
-x, y = img.size
-qx, qy = qrcodeimg.size
+# print("Attempt open and resize qr...")
+# qrcodeimg = Image.open(BytesIO(base64.b64decode(base64str)))
+# qrcodeimg.thumbnail((50,50))
+# x, y = img.size
+# qx, qy = qrcodeimg.size
 
-print("Pasting qr on final image")
-img.paste(qrcodeimg, (x-qx,y-qy), mask=mask2)
+# print("Pasting qr on final image")
+# img.paste(qrcodeimg, (x-qx,y-qy), mask=mask2)
 
 print("Saving images...")
 img.save(PROC_IMG_FILE)
 segimg.save(SEG_IMG_FILE)
 orgimg.save(ORG_IMG_FILE)
-qrcodeimg.save(QR_IMG_FILE)
+# qrcodeimg.save(QR_IMG_FILE)
 
 print("Saving metadata...")
 aperooturl='ipfs://bafybeihpjhkeuiq3k6nqa3fkgeigeri7iebtrsuyuey5y6vy36n345xmbi/'
