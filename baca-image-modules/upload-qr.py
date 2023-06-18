@@ -158,7 +158,7 @@ for ape in apes:
   mask2 = Image.fromarray(np.uint8(mask2*255))
   img.paste(apeimg, (x,y), mask=mask2)
 
-draw = ImageDraw(img)
+draw = ImageDraw.Draw(img)
 draw.text((10,10),f"Block Height: {beryx_height}")
 
 '''
