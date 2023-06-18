@@ -6,6 +6,8 @@ import { useStream } from "../hooks"
 import { assert } from "console"
 import { CID } from 'multiformats/cid';
 import { json } from "stream/consumers"
+import { MediaRenderer, ThirdwebProvider} from "@thirdweb-dev/react";
+import { createRoot } from 'react-dom/client';
 
 export interface Photo {
   albumId: number
@@ -118,27 +120,6 @@ function EventCard({ pEventObj }: Props) {
     getEventCard()
   }, [])
 
-  const handleUploadClick = (event ) => {
-    console.log();
-    var file = event.target.files[0];
-    const reader = new FileReader();
-    var url = reader.readAsDataURL(file);
-    console.error("AH:handleUploadClick: ",url);
-
-    // reader.onloadend = function(e) {
-    //   this.setState({
-    //     selectedFile: [reader.result]
-    //   });
-    // }.bind(this);
-    // console.log(url); // Would see a path?
-
-    // this.setState({
-    //   mainState: "uploaded",
-    //   selectedFile: event.target.files[0],
-    //   imageUploaded: 1
-    // });
-  };
-
   const addPhotos = async (event:any) => {
     const newPhotoURL = 'https://jsonplaceholder.typicode.com/albums?_limit=1'
     const date = new Date().toISOString();
@@ -158,10 +139,10 @@ function EventCard({ pEventObj }: Props) {
         let img64urlstr = imgb64url.toString();
         // console.error("imgb64urlstr onload: ", img64urlstr);
         let imgb64 = img64urlstr.split(",")[1];
-        console.error("imgb64 onload: ", imgb64);
+        // console.error("imgb64 onload: ", imgb64);
 
         const beryxrequestOptions = {
-          method: 'POST',
+          method: 'GET',
           headers: { 'Content-Type': 'application/json',
                       'Authorization': 'Bearer eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleS1iZXJ5eC0wMDEiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W10sImlzcyI6IlpvbmRheCIsImF1ZCI6WyJiZXJ5eCJdLCJleHAiOjE2ODc4OTg3NDUsImp0aSI6ImFrZmhzdWVoLGFsYmVydC5rZi5oc3VlaEBnbWFpbC5jb20ifQ.4RmS_Q2er8GNmbL9iT8PFl81XVJcmgUfJ_kzVpREZTbILmPz1D6G-mn40iT_0HviwSoIg4h9qMvKSxSfbiIaEg',
           }
@@ -170,9 +151,9 @@ function EventCard({ pEventObj }: Props) {
         let beryxresponse = await fetch("https://api.zondax.ch/fil/data/v1/mainnet/tipset/latest", beryxrequestOptions);
 
         let brjson = await beryxresponse.json();
-        console.error("baca response:", beryxresponse, brjson);
+        console.error("beryx response:", beryxresponse, brjson);
         let currentheight = brjson.height;
-        console.error("baca cid:", currentheight);
+        console.error("beryx height:", currentheight);
 
 
         let payload_pyupload = `{
@@ -236,7 +217,21 @@ function EventCard({ pEventObj }: Props) {
         console.error("baca response:", response, rjson);
         let cid = CID.parse(rjson.cid).toV1().toString();
         console.error("baca cid:", cid);
-  
+
+        function getElementByXpath(path:any) {
+          return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        }
+
+        let oldimgelm = getElementByXpath("/html/body/div[3]/button/div/div[4]/img");
+        let imgContElm = getElementByXpath("/html/body/div[3]/button/div/div[4]");
+        oldimgelm.src="";
+        const root = createRoot(imgContElm);
+        // await root.render(<ThirdwebProvider><MediaRenderer src={`ipfs://${cid}/outputs/processed.png`} /></ThirdwebProvider>);
+        await root.render(<ThirdwebProvider><MediaRenderer className={"MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"} style={{}} src={`ipfs://bafybeibwjj3ddd4wzcdzrbc5bpyk5ir5xjjb5a67jfgcvk3w4ud7itguum/outputs/processed.png`} /></ThirdwebProvider>);
+        await new Promise(r => setTimeout(r, 100));
+        let newimgelm = getElementByXpath("/html/body/div[3]/button/div/div[4]/img");
+        newimgelm.removeAttribute("style");
+
         const { streamId, ...streamRecord } = await createPublicStream({
           pkh,
           model: postModel,
@@ -275,6 +270,13 @@ function EventCard({ pEventObj }: Props) {
                 </CardMedia>
               </Grid>
             ))}
+            <Grid key={4} item xs={6}>
+                <CardMedia
+                  component='img'
+                  image={""}
+                >
+                </CardMedia>
+              </Grid>
           </Grid>
         </CardActionArea>
         <input accept="image/*" id="EventCard-uploadPhoto" className="EventCard-input" multiple type="file" onChange={addPhotos} />
