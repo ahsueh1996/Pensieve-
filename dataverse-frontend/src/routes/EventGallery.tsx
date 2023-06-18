@@ -39,17 +39,19 @@ function EventGallery({ pQuery }: Props) {
     //   setEventArray(events)
     // }
     // fetchEvents()
-    
 
-    const loadEvents = async () => {
-      const postRecord = await loadStreams({
-        pkh,
-        modelId: eventModel.stream_id,
-      });
-      if (postRecord) setEvents(Object.values(postRecord));
-    };
+
+
     loadEvents()
   }, [])
+
+  const loadEvents = async () => {
+    const postRecord = await loadStreams({
+      pkh,
+      modelId: eventModel.stream_id,
+    });
+    if (postRecord) setEvents(Object.values(postRecord));
+  };
 
   const getEventNameById = (eventId: string) => {
     return new Date().toISOString()
@@ -75,6 +77,8 @@ function EventGallery({ pQuery }: Props) {
     });
     setCurrentStreamId(streamId);
     setNewEvent(streamRecord as StreamRecord);
+
+    loadEvents()
   };
 
   const addPhotos = () => {
