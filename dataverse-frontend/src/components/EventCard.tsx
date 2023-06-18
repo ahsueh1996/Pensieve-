@@ -153,7 +153,7 @@ function EventCard({ pEventObj }: Props) {
         let img64urlstr = imgb64url.toString();
         // console.error("imgb64urlstr onload: ", img64urlstr);
         let imgb64 = img64urlstr.split(",")[1];
-        // console.error("imgb64 onload: ", imgb64);
+        console.error("imgb64 onload: ", imgb64);
 
         let payload_pyupload = `{
           "Deal": {"Concurrency": 1}, 
@@ -204,27 +204,6 @@ function EventCard({ pEventObj }: Props) {
           "outputs":[{"Name":"outputs","StorageSource":"IPFS","path":"/outputs"}]
           }`
 
-        let payload_pyscript = `{
-          "Deal": {"Concurrency": 1}, 
-          "Docker": {"Image": "python:3.10-slim", "Entrypoint": ["python3", "/inputs/hello-world.py"]}, 
-          "Engine": "Docker", 
-          "Language": {"JobContext": {}},
-          "Network": {"Type": "None"},
-          "Publisher": "Estuary", 
-          "PublisherSpec": {"Type":"Estuary"},
-          "Resources": {"GPU": ""},
-          "Timeout": 1800,
-          "Verifier": "Noop",
-          "Wasm": {"EntryModule": {}},
-          "inputs":[
-            {"Name": "https://raw.githubusercontent.com/bacalhau-project/examples/151eebe895151edd83468e3d8b546612bf96cd05/workload-onboarding/trivial-python/hello-world.py",
-              "StorageSource": "URLDownload",
-              "URL": "https://raw.githubusercontent.com/bacalhau-project/examples/151eebe895151edd83468e3d8b546612bf96cd05/workload-onboarding/trivial-python/hello-world.py",
-              "path": "/inputs"
-            }],
-          "outputs":[{"Name":"outputs","StorageSource":"IPFS","path":"/outputs"}]
-          }`
-
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -232,18 +211,6 @@ function EventCard({ pEventObj }: Props) {
         };
 
         let response = await fetch("http://dashboard.bacalhau.org:1000/api/v1/run", requestOptions);
-
-        // const requestOptions2 = {
-        //   method: 'GET',
-        //   headers: {
-        //     'Authorization': 'Bearer eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleS1iZXJ5eC0wMDEiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W10sImlzcyI6IlpvbmRheCIsImF1ZCI6WyJiZXJ5eCJdLCJleHAiOjE2ODc4OTg3NDUsImp0aSI6ImFrZmhzdWVoLGFsYmVydC5rZi5oc3VlaEBnbWFpbC5jb20ifQ.4RmS_Q2er8GNmbL9iT8PFl81XVJcmgUfJ_kzVpREZTbILmPz1D6G-mn40iT_0HviwSoIg4h9qMvKSxSfbiIaEg',
-        //     'Accept': 'application/json'
-        //   }
-        // }
-
-        // let response2 = await fetch("https://api.zondax.ch/fil/data/v1/mainnet/tipset/latest", requestOptions2);
-        // let rjson2 = await response2.json();
-        // console.error("beryx response:", response2, rjson2);
 
         let rjson = await response.json();
         console.error("baca response:", response, rjson);
@@ -258,8 +225,8 @@ function EventCard({ pEventObj }: Props) {
             createdAt: date,
             updatedAt: date,
             name: 'Tree Planting Party',
-            imageURL: 'ipfs://bafkreidc6pmwkbsgpinafeb5cj2xtom575ugkefnfgkc7ny6tjspgmwwsm',
-            metadataURL: 'ipfs://bafkreicd2a3ev5ipsncdtic6x5solzwjsyapbdtzvlfujuzs7tbaqodxfe'
+            imageURL: `ipfs://${cid}/outputs/processed.png`,
+            metadataURL: `ipfs://${cid}/outputs/metadata.json`
           },
         });
     
