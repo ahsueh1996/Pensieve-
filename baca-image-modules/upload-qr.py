@@ -114,7 +114,6 @@ print(faces_rect)
 
 mask = Image.new('L', img.size, 0)
 draw = ImageDraw.Draw(mask)
-draw.text((0,0),beryx_height,fill=255)
 apefiles = os.listdir("inputs/apes")
 apes = []
 for (x, y, w, h) in faces_rect:
@@ -159,6 +158,8 @@ for ape in apes:
   mask2 = Image.fromarray(np.uint8(mask2*255))
   img.paste(apeimg, (x,y), mask=mask2)
 
+draw = ImageDraw(img)
+draw.text((10,10),f"Block Height: {beryx_height}")
 
 '''
 merge a qr code
