@@ -1,4 +1,4 @@
-type photo @createModel(accountRelation: LIST, description: "event") {
+type photo @createModel(accountRelation: LIST, description: "photo") {
   author: DID! @documentAccount
   version: CommitID! @documentVersion
   appVersion: String! @string(maxLength: 100)

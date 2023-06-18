@@ -1,4 +1,4 @@
-import { Card, CardActionArea, CardMedia, Grid, Typography } from "@mui/material"
+import { Card, CardMedia, Grid, Typography } from "@mui/material"
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from "react"
 
@@ -7,18 +7,21 @@ interface Props {
   setActiveEventID: (activeEventID: number) => void
 }
 
-interface Photo {
-  albumId: number,
-  id: number,
-  title: string,
-  url: string,
-  thumbnailUrl: string
+export interface Photo {
+  albumId: number
+  id: number
+  title: string
+  url: string
+  imageUrl: string
+  uploader: string
 }
 
-interface Event {
-  userId: number,
-  id: number,
-  title: string
+export interface PensieveEvent {
+  userId: number
+  id: number
+  name: string
+  description: string
+  photos: [string]
 }
 
 interface EventCard {
@@ -45,9 +48,9 @@ function EventCard({ eventID, setActiveEventID }: Props) {
     const getEventCardMetadata = async () => {
       // event contains one event
       const eventRes = await fetch(import.meta.env.VITE_EVENT_COLLECTION_ENDPOINT_URL + '?id=' + eventID)
-      const eventJSON: Event[] = await eventRes.json()
+      const eventJSON: PensieveEvent[] = await eventRes.json()
 
-      const eventCardMetadata = eventJSON[0].title
+      const eventCardMetadata = eventJSON[0].name
 
       return eventCardMetadata
     }
@@ -60,7 +63,7 @@ function EventCard({ eventID, setActiveEventID }: Props) {
       const eventPhotoArray: string[] = []
 
       photoArrayJSON.map((photo: Photo) => {
-        eventPhotoArray.push(photo.url)
+        eventPhotoArray.push(photo.imageUrl)
       })
 
       return eventPhotoArray

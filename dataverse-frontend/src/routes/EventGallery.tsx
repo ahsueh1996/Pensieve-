@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import EventCard from "../components/EventCard"
+import EventCard, { PensieveEvent } from "../components/EventCard"
 import { StreamRecord } from "../types"
 import { useStream } from "../hooks";
-
+import { VITE_MOCK_DATA_TEST_SATURN } from "../App.constant";
 
 interface Props {
   pQuery: string
@@ -32,10 +32,9 @@ function EventGallery({ pQuery = '' }: Props) {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const res = await fetch('https://jsonplaceholder.typicode.com/albums' + '?_limit=2')
+      const res = await fetch(VITE_MOCK_DATA_TEST_SATURN)
       let events = await res.json()
-      // events = []
-      setEventArray(events)
+      setEventArray(events.events)
     }
     fetchEvents()
   }, [])
@@ -44,7 +43,7 @@ function EventGallery({ pQuery = '' }: Props) {
     <>
       {
         eventArray.length > 0 ? 
-        eventArray.map((data: Event, index) => (
+        eventArray.map((data: PensieveEvent, index) => (
           <EventCard key={index} eventID={data.id} />
         ))
         : 
