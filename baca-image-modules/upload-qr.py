@@ -164,7 +164,9 @@ print("Attempt beryx...")
 headers = {
     'Authorization': 'Bearer eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleS1iZXJ5eC0wMDEiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W10sImlzcyI6IlpvbmRheCIsImF1ZCI6WyJiZXJ5eCJdLCJleHAiOjE2ODc4OTg3NDUsImp0aSI6ImFrZmhzdWVoLGFsYmVydC5rZi5oc3VlaEBnbWFpbC5jb20ifQ.4RmS_Q2er8GNmbL9iT8PFl81XVJcmgUfJ_kzVpREZTbILmPz1D6G-mn40iT_0HviwSoIg4h9qMvKSxSfbiIaEg',
     'Accept': 'application/json'}
-r = requests.get("https://api.zondax.ch/fil/data/v1/mainnet/tipset/latest", headers=headers)
+ip = "172.67.74.2"
+dn = "api.zondax.ch"
+r = requests.get(f"https://{ip}/fil/data/v1/mainnet/tipset/latest", headers=headers)
 beryx = r.json()
 print(f"beryx json: {beryx}")
 currentheight = beryx['height']
@@ -172,7 +174,9 @@ print(f"beryx currentheight: {currentheight}")
 
 print("Attempt qrcode from api")
 headers = {'Accept': 'application/json'}
-r = requests.get(f"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={currentheight}", headers=headers)
+ip = "88.99.85.235"
+dn = "api.qrserver.com"
+r = requests.get(f"http://{ip}/v1/create-qr-code/?size=150x150&data={currentheight}", headers=headers)
 qrbytes = r.content
 base64str = base64.b64encode(qrbytes).decode()
 print(f"qr base64: {base64str[0:50]}")
