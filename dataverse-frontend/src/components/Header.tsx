@@ -35,7 +35,7 @@ function Header({ pSetQuery }: Props) {
   const connect = async () => {
     const { wallet } = await connectWallet();
     const pkh = await createCapability(wallet);
-    console.log("pkh:", pkh);
+    // console.log("pkh:", pkh);
     return pkh;
   };
 

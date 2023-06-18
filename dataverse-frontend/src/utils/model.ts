@@ -13,6 +13,12 @@ export function  getEventModel() {
   ) as Model;
 }
 
+export function  getPhotoModel() {
+  return app.createDapp.streamIDs.find(
+    (model) => model.name === `${app.createDapp.slug}_photo`
+  ) as Model;
+}
+
 export function getIndexFilesModel() {
   return app.createDapp.streamIDs.find(
     (model) => model.name === `${app.createDapp.slug}_indexFiles`
