@@ -37,6 +37,11 @@ div#banner {
   color: #071c4d;
 }
 
+input#EventCard-uploadPhoto {
+  display: none;
+  background-color: "black";
+}
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
