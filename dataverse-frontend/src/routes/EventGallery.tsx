@@ -39,6 +39,7 @@ function EventGallery({ pQuery }: Props) {
     //   setEventArray(events)
     // }
     // fetchEvents()
+    
 
     const loadEvents = async () => {
       const postRecord = await loadStreams({
@@ -58,7 +59,7 @@ function EventGallery({ pQuery }: Props) {
     return true
   }
 
-  const addEvent = async () => {
+  const addEvent = async (query: string) => {
     const date = new Date().toISOString();
     const eventName = getEventNameById(pQuery)
     const { streamId, ...streamRecord } = await createPublicStream({
@@ -68,7 +69,7 @@ function EventGallery({ pQuery }: Props) {
         appVersion,
         createdAt: date,
         updatedAt: date,
-        eventId: pQuery,
+        eventId: query,
         name: eventName,
       },
     });
@@ -83,7 +84,7 @@ function EventGallery({ pQuery }: Props) {
   return (
     <>
       <h1>{pQuery}</h1>
-      <Button size="small" onClick={addEvent}>Request Access</Button>
+      <Button size="small" onClick={() => addEvent(pQuery)}>Request Access</Button>
       {
         events && events.length > 0 ?
           events.map((data: StreamRecord, index) => (
@@ -93,7 +94,7 @@ function EventGallery({ pQuery }: Props) {
           :
           <>
             <p> No event found. Do you want to request access to this event? </p>
-            <Button size="small" onClick={addEvent}>Request Access</Button>
+            <Button size="small" onClick={() => addEvent(pQuery)}>Request Access</Button>
           </>
       }
       {/* <EventCard eventID={}/> */}
