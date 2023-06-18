@@ -29,6 +29,12 @@ button.MuiButtonBase-root.MuiCardActionArea-root.css-1oitmrd-MuiButtonBase-root-
   background-color: transparent;
 }
 
+
+input#EventCard-uploadPhoto {
+  display: none;
+  background-color: "black";
+}
+
 input.MuiFilledInput-input {
   color: #071c4d;
   background-color: #def7f8;
