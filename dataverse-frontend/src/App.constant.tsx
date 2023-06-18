@@ -1,2 +1,2 @@
 export const VITE_MOCK_DATA_TEST_SATURN = "https://nftstorage.link/ipfs/bafkreie62ofwjnlz3jljyxtxa3zrek54iiv2dqk5mjxaiafq6tp7xqsv24";
-export const VITE_ALCHEMY_API_KEY = "https://eth-goerli.g.alchemy.com/v2/U5V-liCyfK-41FZF2cr1kXR4wELc8g2x"
+export const VITE_ALCHEMY_API_KEY = "U5V-liCyfK-41FZF2cr1kXR4wELc8g2x"
