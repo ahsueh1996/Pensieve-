@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react"
-import EventCard from "../components/EventCard"
+import EventCard, { PensieveEvent } from "../components/EventCard"
 import InfiniteScroll from "react-infinite-scroll-component"
 
 interface Props {
   query?: string
   setActiveEventID: (activeEventID: number) => void
-}
-
-interface Event {
-  userId: number,
-  id: number
-  title: string
 }
 
 function EventGallery({ query = '', setActiveEventID }: Props) {
@@ -21,7 +15,8 @@ function EventGallery({ query = '', setActiveEventID }: Props) {
     const fetchEvents = async () => {
       const res = await fetch(import.meta.env.VITE_EVENT_COLLECTION_ENDPOINT_URL + '?_limit=2')
       const events = await res.json()
-      setEventArray(events)
+      console.log("event gallery's events", events)
+      setEventArray(events.events)
     }
     fetchEvents()
   }, [])
@@ -49,7 +44,7 @@ function EventGallery({ query = '', setActiveEventID }: Props) {
 
       </InfiniteScroll>
       {
-        eventArray.map((data: Event, index) => (
+        eventArray.map((data: PensieveEvent, index) => (
           <EventCard key={index} eventID={data.id} setActiveEventID={setActiveEventID} />
         ))
       }

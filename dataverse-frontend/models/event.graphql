@@ -6,5 +6,4 @@ type event @createModel(accountRelation: LIST, description: "event") {
   updatedAt: DateTime!
   eventId: String @string(maxLength: 44)
   name: String @string(maxLength: 300000000) 
-  
 }
