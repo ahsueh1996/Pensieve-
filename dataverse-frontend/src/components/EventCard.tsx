@@ -7,10 +7,6 @@ import { assert } from "console"
 import { CID } from 'multiformats/cid';
 import { json } from "stream/consumers"
 
-interface Props {
-  pEventObj: StreamRecord
-}
-
 export interface Photo {
   albumId: number
   id: number
@@ -22,10 +18,15 @@ export interface Photo {
 
 export interface PensieveEvent {
   userId: number
-  id: number
+  id: string
   name: string
   description: string
-  photos: [string]
+  photos: [any]
+}
+
+interface Props {
+  // pEventObj: StreamRecord
+  pEventObj: PensieveEvent
 }
 
 interface EventCard {
@@ -40,7 +41,8 @@ function EventCard({ pEventObj }: Props) {
   const [newPhoto, setNewPhoto] = useState<StreamRecord>();
   const [eventId, setEventId] = useState('')
   const [eventName, setEventName] = useState('')
-  const [photos, setPhotos] = useState<StreamRecord[]>(); // All events
+  // const [photos, setPhotos] = useState<StreamRecord[]>(); // All events
+  const [photos, setPhotos] = useState<Photo[]>(); // All events
   const [eventMetadata, setEventMetadata] = useState('')
   const {
     pkh,
@@ -52,15 +54,16 @@ function EventCard({ pEventObj }: Props) {
   // const [eventCard, setEventCard] = useState<EventCard>({ metadata: '', photoURLArray: [''] })
 
   useEffect(() => {
-    console.log('Event Object: ', pEventObj.streamContent.content)
+    // console.log('Event Object: ', pEventObj.streamContent.content)
     parseEventObj()
 
     const loadPhotos = async () => {
-      const postRecord = await loadStreams({
-        pkh,
-        modelId: postModel.stream_id,
-      });
-      if (postRecord) setPhotos(Object.values(postRecord));
+      // const postRecord = await loadStreams({
+      //   pkh,
+      //   modelId: postModel.stream_id,
+      // });
+      // if (postRecord) setPhotos(Object.values(postRecord));
+      setPhotos(pEventObj.photos);
     };
 
     loadPhotos()
@@ -69,8 +72,10 @@ function EventCard({ pEventObj }: Props) {
   console.log('photos: ', photos)
 
   const parseEventObj = () => {
-    setEventId(pEventObj.streamContent.content.eventId)
-    setEventName(pEventObj.streamContent.content.name)
+    // setEventId(pEventObj.streamContent.content.eventId)
+    // setEventName(pEventObj.streamContent.content.name)
+    setEventId(pEventObj.id);
+    setEventName(pEventObj.name);
   }
 
   useEffect(() => {
@@ -237,40 +242,24 @@ function EventCard({ pEventObj }: Props) {
   }
 
   return (
-    <>
-      <h1>{eventId}</h1>
-      <Card>
+    <>      
+      <Card id="event-card">
         <CardActionArea
           onClick={() => alert('test')}
         >
-          {/* <Typography
-            component='p'
-          >
-            {eventCard.metadata}
-          </Typography> */}
-          <Grid container>
-            {
-              photos && photos.length > 0 ?
-                photos.map((data: StreamRecord, index) => (
-                  <EventCard key={index} pEventObj={data} />
-                ))
-
-                :
-                <>
-                  <p> No event found. Do you want to request access to this event? </p>
-                  
-                </>
-            }
-            {/* {eventCard.photoURLArray.map((data: string, index) => (
+          <Typography id="event-card">
+            {eventName}
+          </Typography>
+           <Grid container>
+            {photos?.map((data: Photo, index) => (
               <Grid key={index} item xs={6}>
                 <CardMedia
                   component='img'
-                  image={data}
+                  image={data.imageUrl}
                 >
                 </CardMedia>
               </Grid>
-            ))} */}
-
+            ))}
           </Grid>
         </CardActionArea>
         <input accept="image/*" id="EventCard-uploadPhoto" className="EventCard-input" multiple type="file" onChange={addPhotos} />
