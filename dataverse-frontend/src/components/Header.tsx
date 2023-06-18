@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import { useStream, useWallet } from "../hooks";
 import { Context } from "../context";
 import { ethers } from "ethers";
+import { VITE_ALCHEMY_API_KEY } from "../App.constant";
 
 interface Props {
   pSetQuery: (query: string) => void
@@ -40,7 +41,9 @@ function Header({ pSetQuery, pSetENSName }: Props) {
     const { address, wallet } = await connectWallet();
     console.warn("wallet: ", wallet)
     const pkh = await createCapability(wallet);
-    const goerliProvider = await ethers.getDefaultProvider('goerli')
+    const goerliProvider = await ethers.getDefaultProvider('goerli', {
+      alchemy: VITE_ALCHEMY_API_KEY
+    })
     console.warn('goerli: ', ethers.providers)
     let name;
     name = await goerliProvider.lookupAddress(address);
