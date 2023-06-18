@@ -160,9 +160,24 @@ function EventCard({ pEventObj }: Props) {
         let imgb64 = img64urlstr.split(",")[1];
         console.error("imgb64 onload: ", imgb64);
 
+        const beryxrequestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json',
+                      'Authorization': 'Bearer eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleS1iZXJ5eC0wMDEiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W10sImlzcyI6IlpvbmRheCIsImF1ZCI6WyJiZXJ5eCJdLCJleHAiOjE2ODc4OTg3NDUsImp0aSI6ImFrZmhzdWVoLGFsYmVydC5rZi5oc3VlaEBnbWFpbC5jb20ifQ.4RmS_Q2er8GNmbL9iT8PFl81XVJcmgUfJ_kzVpREZTbILmPz1D6G-mn40iT_0HviwSoIg4h9qMvKSxSfbiIaEg',
+          }
+        };
+
+        let beryxresponse = await fetch("https://api.zondax.ch/fil/data/v1/mainnet/tipset/latest", beryxrequestOptions);
+
+        let brjson = await beryxresponse.json();
+        console.error("baca response:", beryxresponse, brjson);
+        let currentheight = brjson.height;
+        console.error("baca cid:", currentheight);
+
+
         let payload_pyupload = `{
           "Deal": {"Concurrency": 1}, 
-          "Docker": {"Image": "akfhsueh/baca-generic-pytorch-cpu-cv2headless-plt", "Entrypoint": ["python3", "/inputs/upload.py","--i","${imgb64}"]}, 
+          "Docker": {"Image": "akfhsueh/baca-generic-pytorch-cpu-cv2headless-plt", "Entrypoint": ["python3", "/inputs/upload-qr.py","--i","${imgb64}", "--b", "${currentheight}"]}, 
           "Engine": "Docker", 
           "Language": {"JobContext": {}},
           "Network": {"Type": "None"},
@@ -173,9 +188,9 @@ function EventCard({ pEventObj }: Props) {
           "Verifier": "Noop",
           "Wasm": {"EntryModule": {}},
           "inputs":[
-            {"Name": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/upload.py",
+            {"Name": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/upload-qr.py",
               "StorageSource": "URLDownload",
-              "URL": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/upload.py",
+              "URL": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/upload-qr.py",
               "path": "/inputs"},
             {"Name": "https://raw.githubusercontent.com/ahsueh1996/Pensieve-/main/baca-image-modules/inputs/sample.jpg",
               "StorageSource": "URLDownload",
