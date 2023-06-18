@@ -1,6 +1,6 @@
 export const config = {
-  slug: "df9", // app id, need to match this regular: `^[a-zA-Z][a-zA-Z0-9_]*$`
-  name: "df9", // app name should NOT contain "-"
+  slug: "df10", // app id, need to match this regular: `^[a-zA-Z][a-zA-Z0-9_]*$`
+  name: "df10", // app name should NOT contain "-"
   logo: "",
   website: "", // you can use localhost:(port) for testing
   defaultFolderName: "Untitled",

@@ -46,15 +46,15 @@ function EventCard({ pEventObj }: Props) {
   // const [eventCard, setEventCard] = useState<EventCard>({ metadata: '', photoURLArray: [''] })
 
   useEffect(() => {
-    // console.log('Event Object: ', pEventObj)
-    parseEventObj()
+    console.log('Event Object: ', pEventObj.streamContent.content)
+    // parseEventObj()
 
     const loadPhotos = async () => {
       const postRecord = await loadStreams({
         pkh,
         modelId: postModel.stream_id,
       });
-      setPhotos(Object.values(postRecord));
+      if (postRecord) setPhotos(Object.values(postRecord));
     };
 
     loadPhotos()
@@ -168,7 +168,6 @@ function EventCard({ pEventObj }: Props) {
         <Button size="small" onClick={addPhotos}>Add photos</Button>
       </Card>
     </>
-
   )
 }
 

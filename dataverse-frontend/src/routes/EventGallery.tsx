@@ -17,7 +17,7 @@ interface Event {
   title: string
 }
 
-function EventGallery({ pQuery = '' }: Props) {
+function EventGallery({ pQuery }: Props) {
   const { appVersion, postModel, eventModel } = useContext(Context);
 
   const [currentStreamId, setCurrentStreamId] = useState<string>();
@@ -45,7 +45,7 @@ function EventGallery({ pQuery = '' }: Props) {
         pkh,
         modelId: eventModel.stream_id,
       });
-      setEvents(Object.values(postRecord));
+      if (postRecord) setEvents(Object.values(postRecord));
     };
     loadEvents()
   }, [])
@@ -72,7 +72,6 @@ function EventGallery({ pQuery = '' }: Props) {
         name: eventName,
       },
     });
-
     setCurrentStreamId(streamId);
     setNewEvent(streamRecord as StreamRecord);
   };
@@ -83,6 +82,7 @@ function EventGallery({ pQuery = '' }: Props) {
 
   return (
     <>
+      <h1>{pQuery}</h1>
       <Button size="small" onClick={addEvent}>Request Access</Button>
       {
         events && events.length > 0 ?
