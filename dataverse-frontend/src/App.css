@@ -69,6 +69,16 @@ div.css-bhp9pd-MuiPaper-root-MuiCard-root {
   background-color: transparent;
 }
 
+div#avatar {
+  background-color: #071c4d;
+  opacity: 85%;
+  color: #fff011;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  height: 40px;
+}
+
 p.MuiTypography-root {
   background-color: transparent;
 }

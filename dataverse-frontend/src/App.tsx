@@ -10,6 +10,7 @@ import Header from "./components/Header";
 
 function App() {
   const [query, setQuery] = useState('')
+  const [ensName, SetENSName] = useState('')
   const [eventID, setEventID] = useState('')
 
   const { appVersion, postModel, eventModel } = useContext(Context);
@@ -196,8 +197,8 @@ function App() {
 
   return (
     <>
-      <Header pSetQuery={setQuery} />
-      <EventGallery pQuery={query}/>
+      <Header pSetQuery={setQuery} pSetENSName={SetENSName} />
+      <EventGallery pQuery={query} pENSName={ensName} />
       <div className="App">
       </div>
     </>

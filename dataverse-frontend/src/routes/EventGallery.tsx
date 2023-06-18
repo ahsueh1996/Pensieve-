@@ -8,10 +8,11 @@ import { render } from "react-dom";
 import { VITE_MOCK_DATA_TEST_SATURN } from "../App.constant";
 
 interface Props {
-  pQuery: string
+  pQuery: string,
+  pENSName: string
 }
 
-function EventGallery({ pQuery }: Props) {
+function EventGallery({ pQuery,pENSName }: Props) {
   const { appVersion, postModel, eventModel } = useContext(Context);
 
   const [currentStreamId, setCurrentStreamId] = useState<string>();
@@ -32,22 +33,27 @@ function EventGallery({ pQuery }: Props) {
     const fetchEvents = async () => {
       const res = await fetch(VITE_MOCK_DATA_TEST_SATURN + '?_limit=2')
       let events = await res.json()
-      // events = []
-      console.log(events)
+      console.log("showing events of logged in account", pENSName);
+      if (events.address == pENSName || events.name == pENSName) {
+        events = events.events;
+      } else [
+        events = []
+      ]
+      console.log("events", events)
       setEvents(events.events)
     }
     fetchEvents()
     
 
-    const loadEvents = async () => {
-      const postRecord = await loadStreams({
-        pkh,
-        modelId: eventModel.stream_id,
-      });
-      // if (postRecord) setEvents(Object.values(postRecord));
-    };
-    loadEvents()
-  }, [])
+    // const loadEvents = async () => {
+    //   const postRecord = await loadStreams({
+    //     pkh,
+    //     modelId: eventModel.stream_id,
+    //   });
+    //   // if (postRecord) setEvents(Object.values(postRecord));
+    // };
+    // loadEvents()
+  }, [pENSName])
 
   // const loadEvents = async () => {
   //   const postRecord = await loadStreams({
@@ -97,17 +103,19 @@ function EventGallery({ pQuery }: Props) {
 
   return (
     <>
-      <h1>{pQuery}</h1>
+      {/* <h1>{pQuery} {pENSName}</h1> */}
       {/* <Button size="small" onClick={() => addEvent(pQuery)}>Request Access</Button> */}
+      <div key={events?.length}>
       {
         events && events.length > 0 ?
           // events.map((data: StreamRecord, index) => (
           events.map((data: PensieveEvent, index) => (  
-            <EventCard key={index} pEventObj={data} />
+            <div id={`event${index.toString()}`} >
+              <EventCard key={index} pEventObj={data} />
+            </div>
           ))
           :
-          <>
-          <Grid container id="body-grid">
+          <Grid key={events?.length} container id="body-grid">
             <Grid item xs={4}> </Grid>
             <Grid item xs={4}>
               <div id="banner">
@@ -119,8 +127,9 @@ function EventGallery({ pQuery }: Props) {
             </Grid>
             <Grid item xs={4}></Grid>
           </Grid>
-          </>
       }
+      </div>
+
       {/* <EventCard eventID={}/> */}
       {/* <p>{JSON.stringify(eventArray)}</p> */}
     </>

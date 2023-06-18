@@ -1,4 +1,4 @@
-import { Button, Card, CardActionArea, CardMedia, Grid, Typography, Fab } from "@mui/material"
+import { Button, Card, CardActionArea, CardMedia, Grid, Typography, Fab, Link } from "@mui/material"
 import { useContext, useEffect, useState } from "react"
 import { StreamRecord } from "../types"
 import { Context } from "../context"
@@ -6,6 +6,7 @@ import { useStream } from "../hooks"
 import { assert } from "console"
 import { CID } from 'multiformats/cid';
 import { json } from "stream/consumers"
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 export interface Photo {
   albumId: number
@@ -69,7 +70,7 @@ function EventCard({ pEventObj }: Props) {
     loadPhotos()
   })
 
-  console.log('photos: ', photos)
+  // console.log('photos: ', photos)
 
   const parseEventObj = () => {
     // setEventId(pEventObj.streamContent.content.eventId)
@@ -278,26 +279,32 @@ function EventCard({ pEventObj }: Props) {
     <>      
       <Card id="event-card">
         <CardActionArea
-          onClick={() => alert('test')}
-        >
+          // onClick={() => alert('test')}
+          >
           <Typography id="event-card">
             {eventName}
           </Typography>
            <Grid container>
             {photos?.map((data: Photo, index) => (
               <Grid key={index} item xs={6}>
+                <Link href={data.imageUrl} target="_blank" rel="noopener">
                 <CardMedia
                   component='img'
                   image={data.imageUrl}
-                >
+                  >
                 </CardMedia>
+                </Link>
               </Grid>
             ))}
           </Grid>
         </CardActionArea>
         <input accept="image/*" id="EventCard-uploadPhoto" className="EventCard-input" multiple type="file" onChange={addPhotos} />
         <label htmlFor="EventCard-uploadPhoto">
-          <Fab component="span"><Button disabled size="small">Add photos</Button></Fab>
+          <Fab component="span">
+            <Button disabled variant="contained" size="small">
+              <UploadFileIcon fontSize="medium" />
+            </Button>
+          </Fab>
         </label>
       </Card>
     </>

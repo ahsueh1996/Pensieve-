@@ -1,5 +1,6 @@
 {
-    "name": "jerryt3.eth",
+    "name": "moomoo.eth",
+    "address": "0x40FD6a96e641EA5D3A9C83D931369e29Cb51a32E",
     "image": "",
     "events": [
         {
@@ -9,7 +10,7 @@
             "photos": [
                 {
                     "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.nftstorage.link/plant/plant01.png",
-                    "uploader": "jerryt3.eth"
+                    "uploader": "moomoo.eth"
                 },
                 {
                     "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.nftstorage.link/plant/plant02.png",
