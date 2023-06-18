@@ -135,7 +135,7 @@ function EventCard({ pEventObj }: Props) {
 
   return (
     <>
-      <h1>Event</h1>
+      <h1>{eventId}</h1>
       <Card>
         <CardActionArea
           onClick={() => alert('test')}
