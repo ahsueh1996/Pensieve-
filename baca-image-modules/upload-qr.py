@@ -114,7 +114,7 @@ print(faces_rect)
 
 mask = Image.new('L', img.size, 0)
 draw = ImageDraw.Draw(mask)
-draw.text((0,0),beryx_height,(255,255,255))
+draw.text((0,0),beryx_height,fill=255)
 apefiles = os.listdir("inputs/apes")
 apes = []
 for (x, y, w, h) in faces_rect:
