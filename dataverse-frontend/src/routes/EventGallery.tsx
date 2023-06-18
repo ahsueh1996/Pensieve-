@@ -40,7 +40,7 @@ function EventGallery({ pQuery,pENSName }: Props) {
         events = []
       ]
       console.log("events", events)
-      setEvents(events.events)
+      setEvents(events)
     }
     fetchEvents()
     
