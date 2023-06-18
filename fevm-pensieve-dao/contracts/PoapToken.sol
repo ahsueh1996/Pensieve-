@@ -10,11 +10,21 @@ contract PoapToken is ERC721, Ownable {
 
     Counters.Counter private _tokenIdCounter;
 
-    constructor() ERC721("PoapToken", "PT") {}
+    string private _metadataURL;
+
+    constructor(string memory name, string memory symbol, string memory url) ERC721(name, symbol) {
+        _metadataURL = url;
+    }
 
     function safeMint(address to) public onlyOwner {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
+    }
+
+    function tokenURI(
+        uint256 tokenId
+    ) public view override(ERC721) returns (string memory) {
+        return _metadataURL;
     }
 }
