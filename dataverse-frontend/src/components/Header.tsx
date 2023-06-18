@@ -55,6 +55,7 @@ function Header({ pSetQuery }: Props) {
             variant="filled"
             size='small'
             value={query}
+            onBlur={e => pSetQuery(e.target.value)}
             onChange={e => setQuery(e.target.value)}
           />
         </Grid>
