@@ -47,7 +47,7 @@ function EventCard({ pEventObj }: Props) {
 
   useEffect(() => {
     console.log('Event Object: ', pEventObj.streamContent.content)
-    // parseEventObj()
+    parseEventObj()
 
     const loadPhotos = async () => {
       const postRecord = await loadStreams({
@@ -110,7 +110,9 @@ function EventCard({ pEventObj }: Props) {
   const addPhotos = async () => {
     const newPhotoURL = 'https://jsonplaceholder.typicode.com/albums?_limit=1'
     const date = new Date().toISOString();
-    //react file uploader eventId
+
+    console.error(`addPhotos invoked by ${eventName}, ${eventId}`, pEventObj);
+
     const { streamId, ...streamRecord } = await createPublicStream({
       pkh,
       model: postModel,
