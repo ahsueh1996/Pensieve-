@@ -161,16 +161,21 @@ for ape in apes:
 merge a qr code
 '''
 print("Attempt beryx...")
-headers = {
-    'Authorization': 'Bearer eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleS1iZXJ5eC0wMDEiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W10sImlzcyI6IlpvbmRheCIsImF1ZCI6WyJiZXJ5eCJdLCJleHAiOjE2ODc4OTg3NDUsImp0aSI6ImFrZmhzdWVoLGFsYmVydC5rZi5oc3VlaEBnbWFpbC5jb20ifQ.4RmS_Q2er8GNmbL9iT8PFl81XVJcmgUfJ_kzVpREZTbILmPz1D6G-mn40iT_0HviwSoIg4h9qMvKSxSfbiIaEg',
-    'Accept': 'application/json'}
-ip = "172.67.74.2"
-dn = "api.zondax.ch"
-r = requests.get(f"https://{ip}/fil/data/v1/mainnet/tipset/latest", headers=headers)
-beryx = r.json()
-print(f"beryx json: {beryx}")
-currentheight = beryx['height']
-print(f"beryx currentheight: {currentheight}")
+try:
+  headers = {
+      'Authorization': 'Bearer eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleS1iZXJ5eC0wMDEiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W10sImlzcyI6IlpvbmRheCIsImF1ZCI6WyJiZXJ5eCJdLCJleHAiOjE2ODc4OTg3NDUsImp0aSI6ImFrZmhzdWVoLGFsYmVydC5rZi5oc3VlaEBnbWFpbC5jb20ifQ.4RmS_Q2er8GNmbL9iT8PFl81XVJcmgUfJ_kzVpREZTbILmPz1D6G-mn40iT_0HviwSoIg4h9qMvKSxSfbiIaEg',
+      'Accept': 'application/json'}
+  ip = "172.67.74.2"
+  dn = "api.zondax.ch"
+  r = requests.get(f"https://{ip}/fil/data/v1/mainnet/tipset/latest", headers=headers)
+  beryx = r.json()
+  print(f"beryx json: {beryx}")
+  currentheight = beryx['height']
+  print(f"beryx currentheight: {currentheight}")
+except Exception as e:
+   print(e)
+   print("failed beryx. Skipping")
+   currentheight = 12345
 
 print("Attempt qrcode from api")
 headers = {'Accept': 'application/json'}
