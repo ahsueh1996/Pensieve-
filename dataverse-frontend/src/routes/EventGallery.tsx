@@ -49,6 +49,14 @@ function EventGallery({ pQuery }: Props) {
     loadEvents()
   }, [])
 
+  // const loadEvents = async () => {
+  //   const postRecord = await loadStreams({
+  //     pkh,
+  //     modelId: eventModel.stream_id,
+  //   });
+  //   if (postRecord) setEvents(Object.values(postRecord));
+  // };
+
   const getEventNameById = (eventId: string) => {
     return new Date().toISOString()
   }
