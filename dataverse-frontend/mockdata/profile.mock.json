@@ -4,31 +4,31 @@
     "events": [
         {
             "id": "0xd48Bb6f7a98F1dfCb88dC583D75dD73eEa85347c",
-            "name": "Ethereum Mainnet Merge Painting",
-            "description": "Ethereum Mainnet Merge Party! Paint POAP Art together!",
+            "name": "Community Tree Planting",
+            "description": "Community Tree Planting at Jerryston Circle",
             "photos": [
                 {
-                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.nftstorage.link/plant/plant01",
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.nftstorage.link/plant/plant01.png",
                     "uploader": "jerryt3.eth"
                 },
                 {
-                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.nftstorage.link/plant/plant02",
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.nftstorage.link/plant/plant02.png",
                     "uploader": "jerryt3.eth"
                 },
                 {
-                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.nftstorage.link/plant/plant03",
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.nftstorage.link/plant/plant03.png",
                     "uploader": "0xF47Bb6f7a98F1dfCb88dC583D75dD73eEa85347d"
                 },
                 {
-                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.nftstorage.link/plant/plant04",
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.nftstorage.link/plant/plant04.png",
                     "uploader": "0xF47Bb6f7a98F1dfCb88dC583D75dD73eEa85347d"
                 },
                 {
-                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.nftstorage.link/plant/plant05",
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.nftstorage.link/plant/plant05.png",
                     "uploader": "jerryt3.eth"
                 },
                 {
-                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.nftstorage.link/plant/plant06",
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.nftstorage.link/plant/plant06.png",
                     "uploader": "jerryt3.eth"
                 }
             ]
@@ -40,16 +40,80 @@
             "bacalhau": "ipfs://bafybeidruaj53xb57wkqmufbhsz64nhlydwtwnq66f7lq3dp6qdqbtt5s4/",
             "photos": [
                 {
-                    "imageUrl": "https://github.com/ahsueh1996/Pensieve-/blob/main/baca-image-modules/examples-cli/job-20d13588/outputs/processed.png",
+                    "imageUrl": "https://github.com/ahsueh1996/Pensieve-/blob/main/baca-image-modules/examples-cli/job-20d13588/outputs/processed.png?raw=true",
                     "uploader": "sbobo.eth"
                 },
                 {
-                    "imageUrl": "https://github.com/ahsueh1996/Pensieve-/blob/main/baca-image-modules/examples-cli/job-3bb0677d/outputs/processed.png",
+                    "imageUrl": "https://github.com/ahsueh1996/Pensieve-/blob/main/baca-image-modules/examples-cli/job-3bb0677d/outputs/processed.png?raw=true",
                     "uploader": "sbobo.eth"
                 },
                 {
-                    "imageUrl": "https://github.com/ahsueh1996/Pensieve-/blob/main/baca-image-modules/examples-cli/job-53800763/outputs/processed.png",
+                    "imageUrl": "https://github.com/ahsueh1996/Pensieve-/blob/main/baca-image-modules/examples-cli/job-53800763/outputs/processed.png?raw=true",
                     "uploader": "sbobo.eth"
+                }
+            ]
+        },
+        {
+            "id": "0x128Bb6f7a9cccdfCb88dC583D75dD73eEa85347c",
+            "name": "Stargazing with Saturn",
+            "description": "It was a beautiful night sky! Let's catch Saturn together!",
+            "bacalhau": "ipfs://bafybeidruaj53xb57wkqmufbhsz64nhlydwtwnq66f7lq3dp6qdqbtt5s4/",
+            "photos": [
+                {
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.dweb.link/star/star01.png",
+                    "uploader": "intersetllertomato.eth"
+                },
+                {
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.dweb.link/star/star02.png",
+                    "uploader": "sbobo.eth"
+                },
+                {
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.dweb.link/star/star03.png",
+                    "uploader": "intersetllertomato.eth"
+                },
+                {
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.dweb.link/star/star04.png",
+                    "uploader": "sbobo.eth"
+                },
+                {
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.dweb.link/star/star05.png",
+                    "uploader": "intersetllertomato.eth"
+                },
+                {
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.dweb.link/star/star06.png",
+                    "uploader": "sbobo.eth"
+                },
+                {
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.dweb.link/star/star07.png",
+                    "uploader": "sbobo.eth"
+                },      
+                {
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.dweb.link/star/star08.png",
+                    "uploader": "sbobo.eth"
+                }
+            ]
+        },
+        {
+            "id": "0x5411b6f7a9cccdfCb88dC583D75dD73eEa85347c",
+            "name": "Ethereum Mainnet Merge Painting",
+            "description": "Ethereum Mainnet Merge Party! Paint POAP Art together!",
+            "bacalhau": "ipfs://bafybeidruaj53xb57wkqmufbhsz64nhlydwtwnq66f7lq3dp6qdqbtt5s4/",
+            "photos": [
+                {
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.dweb.link/paint/paint01.png",
+                    "uploader": "lacie.eth"
+                },
+                {
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.dweb.link/paint/paint02.png",
+                    "uploader": "mumu.eth"
+                },
+                {
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.dweb.link/paint/paint03.png",
+                    "uploader": "sbobo.eth"
+                },
+                {
+                    "imageUrl": "https://bafybeifplesaqysutnaxbs7zu2lm3r2y657uyhf2b66zva2hst6tj2ihue.ipfs.dweb.link/paint/paint04.png",
+                    "uploader": "dob.eth"
                 }
             ]
         }

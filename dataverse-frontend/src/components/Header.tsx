@@ -41,7 +41,7 @@ function Header({ pSetQuery }: Props) {
 
   return (
     <>
-      <Grid container>
+      <Grid container id="header-grid">
         <Grid item xs={2}>
           <Button variant="contained" onClick={connect}>
             <LoginIcon fontSize="medium" />

@@ -5,9 +5,13 @@
   background-position: bottom;
   background-color: transparent;
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   background-position: center center;
   background-image: url('../assets/stable-diffusion-background-01.jpeg');
+}
+
+button#event-card.MuiButtonBase-root {
+  background-color: transparent;
 }
 
 button.MuiButtonBase-root {
@@ -20,6 +24,11 @@ button.MuiButtonBase-root:hover {
   background-color: #071c4d;
 }
 
+
+button.MuiButtonBase-root.MuiCardActionArea-root.css-1oitmrd-MuiButtonBase-root-MuiCardActionArea-root {
+  background-color: transparent;
+}
+
 input.MuiFilledInput-input {
   color: #071c4d;
   background-color: #def7f8;
@@ -28,76 +37,33 @@ input.MuiFilledInput-input {
   opacity: 60%;
 }
 
-div.MuiGrid-root {
-  height: 30vh;
+div#body-grid.MuiGrid-root {
+  height: 100%;
+  text-align: center;
+}
+
+div#header-grid.MuiGrid-root {
+  height: 50px;
   text-align: center;
 }
 
 div#banner {
+  height: 250px;
   color: #071c4d;
 }
 
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+div.MuiPaper-root {
+  background-color: transparent;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+div.css-bhp9pd-MuiPaper-root-MuiCard-root {
+  background-color: transparent;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+p.MuiTypography-root {
+  background-color: transparent;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+p#event-card {
+  background-color: #071c4d;
 }
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
-  display: block;
-  margin: 10px auto;
-}
-
-.blackText {
-  color: black;
-  font-family: Poppins;
-  max-width: 800px;
-  overflow: auto;
-}
-
-.red {
-  color: red;
-  font-size: 14px;
-  font-family: Poppins;
-}
-
-.json-view {
-  font-size: 12px;
-  text-align: start;
-} */
