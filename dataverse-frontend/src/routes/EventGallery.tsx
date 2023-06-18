@@ -3,7 +3,7 @@ import EventCard from "../components/EventCard"
 import { StreamRecord } from "../types"
 import { useStream } from "../hooks";
 import { Context } from "../context";
-import { Button } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { render } from "react-dom";
 import { VITE_MOCK_DATA_TEST_SATURN } from "../App.constant";
 
@@ -84,17 +84,24 @@ function EventGallery({ pQuery }: Props) {
   return (
     <>
       <h1>{pQuery}</h1>
-      <Button size="small" onClick={() => addEvent(pQuery)}>Request Access</Button>
+      {/* <Button size="small" onClick={() => addEvent(pQuery)}>Request Access</Button> */}
       {
         events && events.length > 0 ?
           events.map((data: StreamRecord, index) => (
             <EventCard key={index} pEventObj={data} />
           ))
-
           :
           <>
-            <p> No event found. Do you want to request access to this event? </p>
-            <Button size="small" onClick={() => addEvent(pQuery)}>Request Access</Button>
+          <Grid container>
+            <Grid item xs={4}> </Grid>
+            <Grid item xs={4}>
+              <div id="banner">
+                <Typography mt={4}> No memories here yet... Do you want to create one? </Typography>
+              </div>
+              <Button size="small" onClick={() => addEvent(pQuery)}>YES! LET'S DO IT! </Button>
+            </Grid>
+            <Grid item xs={4}></Grid>
+          </Grid>
           </>
       }
       {/* <EventCard eventID={}/> */}

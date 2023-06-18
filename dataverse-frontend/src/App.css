@@ -28,6 +28,15 @@ input.MuiFilledInput-input {
   opacity: 60%;
 }
 
+div.MuiGrid-root {
+  height: 30vh;
+  text-align: center;
+}
+
+div#banner {
+  color: #071c4d;
+}
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
