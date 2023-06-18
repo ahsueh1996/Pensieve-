@@ -20,6 +20,7 @@ METADATA_FILE = os.path.join(OUTPUT_FOLDER,"metadata.json")
 PROC_IMG_FILE = os.path.join(OUTPUT_FOLDER,"processed.png")
 SEG_IMG_FILE = os.path.join(OUTPUT_FOLDER,"segmentation.png")
 ORG_IMG_FILE = os.path.join(OUTPUT_FOLDER,"original.png")
+QR_IMG_FILE = os.path.join(OUTPUT_FOLDER,"qr.png")
 
 print(f"*********** Pensive Image Upload Preprocessing Module ***********")
 parser = argparse.ArgumentParser(description='Pensieve Image Upload Preprocessing Module')
@@ -159,27 +160,39 @@ for ape in apes:
 '''
 merge a qr code
 '''
+print("Attempt beryx...")
 headers = {
     'Authorization': 'Bearer eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleS1iZXJ5eC0wMDEiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W10sImlzcyI6IlpvbmRheCIsImF1ZCI6WyJiZXJ5eCJdLCJleHAiOjE2ODc4OTg3NDUsImp0aSI6ImFrZmhzdWVoLGFsYmVydC5rZi5oc3VlaEBnbWFpbC5jb20ifQ.4RmS_Q2er8GNmbL9iT8PFl81XVJcmgUfJ_kzVpREZTbILmPz1D6G-mn40iT_0HviwSoIg4h9qMvKSxSfbiIaEg',
     'Accept': 'application/json'}
 r = requests.get("https://api.zondax.ch/fil/data/v1/mainnet/tipset/latest", headers=headers)
 beryx = r.json()
+print(f"beryx json: {beryx}")
 currentheight = beryx['height']
+print(f"beryx currentheight: {currentheight}")
+
+print("Attempt qrcode from api")
 headers = {'Accept': 'application/json'}
 r = requests.get(f"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={currentheight}", headers=headers)
 qrbytes = r.content
 base64str = base64.b64encode(qrbytes).decode()
+print(f"qr base64: {base64str[0:50]}")
 
+print("Attempt open and resize qr...")
 qrcodeimg = Image.open(BytesIO(base64.b64decode(base64str)))
 qrcodeimg.thumbnail((50,50))
 x, y = img.size
 qx, qy = qrcodeimg.size
+
+print("Pasting qr on final image")
 img.paste(qrcodeimg, (x-qx,y-qy), mask=mask2)
 
+print("Saving images...")
 img.save(PROC_IMG_FILE)
 segimg.save(SEG_IMG_FILE)
 orgimg.save(ORG_IMG_FILE)
+qrcodeimg.save(QR_IMG_FILE)
 
+print("Saving metadata...")
 aperooturl='ipfs://bafybeihpjhkeuiq3k6nqa3fkgeigeri7iebtrsuyuey5y6vy36n345xmbi/'
 metadata = {"objects":items,
             "faces": len(faces_rect),
